@@ -1,7 +1,7 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
 import { AutoSlidingGallery } from "@/components/auto-sliding-gallery"
 import { Footer } from "@/components/footer"
 import { Sparkles, Menu, X, Star, Heart, PawPrint, User, LogOut } from "lucide-react"
@@ -16,38 +16,29 @@ import { LanguageProvider } from "@/utils/i18n/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage } from "@/utils/i18n/language-context"
 import { MyPage } from "@/components/my-page"
+import { AppProvider, useApp } from "@/contexts/app-context"
+import { useResponsive } from "@/hooks/use-responsive"
+import { STYLE_OPTIONS } from "@/constants"
+import type { ProfileCreationStep } from "@/types"
 
 // 언어 컨텍스트를 사용하는 내부 컴포넌트
 function PetStudioPageContent() {
   const { t } = useLanguage()
+  const { isLoggedIn, login, logout, openModal, closeModal, user } = useApp()
+  const { isMobile } = useResponsive()
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const [activeStyle, setActiveStyle] = useState<number | null>(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [showMyPage, setShowMyPage] = useState(false)
 
   // 프로필 생성 플로우 관련 상태
   const [profileDialogOpen, setProfileDialogOpen] = useState(false)
-  const [currentStep, setCurrentStep] = useState<"guidelines" | "gallery" | "styleSelection" | "loading">("guidelines")
+  const [currentStep, setCurrentStep] = useState<ProfileCreationStep>("guidelines")
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>([])
   const [selectedStyle, setSelectedStyle] = useState<number | null>(null)
 
   // 회원가입 모달 관련 상태
   const [showSignupModal, setShowSignupModal] = useState(false)
-
-  // Check if the device is mobile
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
-
-    return () => {
-      window.removeEventListener("resize", checkIfMobile)
-    }
-  }, [])
 
   const goToHome = () => {
     setMobileMenuOpen(false)
@@ -88,7 +79,7 @@ function PetStudioPageContent() {
 
   // 회원가입 완료 후 처리
   const handleSignupComplete = () => {
-    setIsLoggedIn(true)
+    login()
     // 회원가입 완료 후 프로필 생성 플로우 계속
     setProfileDialogOpen(true)
     setCurrentStep("styleSelection")
@@ -108,12 +99,12 @@ function PetStudioPageContent() {
   }
 
   const handleLogin = () => {
-    setIsLoggedIn(true)
+    login()
     setMobileMenuOpen(false)
   }
 
   const handleLogout = () => {
-    setIsLoggedIn(false)
+    logout()
     setMobileMenuOpen(false)
   }
 
@@ -149,7 +140,7 @@ function PetStudioPageContent() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Navigation bar - 간소화됨 */}
+      {/* Navigation bar */}
       <nav className="w-full bg-white shadow-sm py-4 sticky top-0 z-50">
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
           <div className="flex-1">
@@ -181,7 +172,7 @@ function PetStudioPageContent() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button - 메뉴 내용 없어짐 */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
             <LanguageSwitcher />
             <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="text-purple-700">
@@ -216,7 +207,7 @@ function PetStudioPageContent() {
           </div>
         </div>
 
-        {/* Mobile Menu - 내용 없어짐 */}
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-md py-2 px-4 z-50">
             {isLoggedIn ? (
@@ -254,7 +245,7 @@ function PetStudioPageContent() {
       <div className="flex-1 flex flex-col">
         <main className="container mx-auto px-4 md:px-6 py-6 md:py-12 flex-1">
           <div className="max-w-4xl mx-auto">
-            {/* 레이아웃 수정된 Hero 섹션 */}
+            {/* Hero 섹션 */}
             <section className="text-center mb-8 md:mb-12 py-6 md:py-8 relative">
               {/* 그라데이션 배경 효과 */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -300,7 +291,7 @@ function PetStudioPageContent() {
                 <Heart className="h-3 w-3 md:h-4 md:w-4 text-pink-400" />
               </div>
 
-              {/* 메인 타이틀 - 레이아웃 수정 */}
+              {/* 메인 타이틀 */}
               <div className="relative mb-4 md:mb-6">
                 {/* Title background glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 via-sky-400/20 to-purple-400/20 rounded-2xl blur-xl"></div>
@@ -378,13 +369,12 @@ function PetStudioPageContent() {
               </div>
             </section>
 
-            {/* Main images - Side by side layout with improved quality and no backgrounds */}
+            {/* Main images - Side by side layout */}
             <div className="mb-6 md:mb-8 max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
                 {/* Left image - Home photo */}
                 <div className="flex flex-col items-center">
                   <div className="w-full max-w-xs mx-auto">
-                    {/* Simple rounded mask with no background */}
                     <div className="overflow-hidden rounded-2xl shadow-md aspect-square">
                       <img
                         src="/kancho-home.jpeg"
@@ -403,7 +393,6 @@ function PetStudioPageContent() {
                 {/* Right image - Studio photo */}
                 <div className="flex flex-col items-center">
                   <div className="w-full max-w-xs mx-auto">
-                    {/* Simple rounded mask with no background */}
                     <div className="overflow-hidden rounded-2xl shadow-md aspect-square">
                       <img
                         src="/kancho-profile.png"
@@ -428,7 +417,7 @@ function PetStudioPageContent() {
               </div>
             </div>
 
-            {/* Create Profile Button - 로그인 없이 바로 프로필 생성 플로우 시작 */}
+            {/* Create Profile Button */}
             <div className="flex justify-center mb-8 md:mb-12">
               <div className="w-full max-w-sm md:max-w-lg mx-auto text-center">
                 <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
@@ -472,111 +461,47 @@ function PetStudioPageContent() {
               </div>
             </section>
 
-            {/* Enhanced Photo Style Options - 제목 제거 */}
+            {/* Photo Style Options */}
             <section className="mb-6 md:mb-8">
               <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-8">
-                {/* Style 1 - 꽃단장 프로필 */}
-                <div
-                  className={`flex flex-col items-center ${activeStyle === 1 ? "scale-105 transition-transform" : ""}`}
-                  onMouseEnter={() => setActiveStyle(1)}
-                  onMouseLeave={() => setActiveStyle(null)}
-                >
-                  <div className="relative w-full max-w-[120px] sm:max-w-[144px] md:max-w-full mx-auto">
-                    {/* Decorative frame */}
-                    <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-purple-300 via-pink-200 to-purple-300 rounded-lg opacity-70 blur-sm"></div>
+                {STYLE_OPTIONS.map((style) => (
+                  <div
+                    key={style.id}
+                    className={`flex flex-col items-center ${activeStyle === style.id ? "scale-105 transition-transform" : ""}`}
+                    onMouseEnter={() => setActiveStyle(style.id)}
+                    onMouseLeave={() => setActiveStyle(null)}
+                  >
+                    <div className="relative w-full max-w-[120px] sm:max-w-[144px] md:max-w-full mx-auto">
+                      {/* Decorative frame */}
+                      <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-purple-300 via-pink-200 to-purple-300 rounded-lg opacity-70 blur-sm"></div>
 
-                    {/* Image container */}
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg border-2 border-purple-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                      <div className="w-full h-full overflow-hidden">
-                        <img
-                          src="/flower-profile-dog.png"
-                          alt="꽃단장 프로필 예시"
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                          loading="eager"
-                          style={{ imageRendering: "high-quality" }}
-                        />
+                      {/* Image container */}
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg border-2 border-purple-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                        <div className="w-full h-full overflow-hidden">
+                          <img
+                            src={style.imageSrc || "/placeholder.svg"}
+                            alt={`${style.name} 예시`}
+                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                            loading="eager"
+                            style={{ imageRendering: "high-quality" }}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Enhanced label */}
-                  <div className="mt-3 md:mt-4 text-center">
-                    <p className="font-bold text-xs sm:text-sm md:text-base bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
-                      {t("flowerProfile")}
-                    </p>
-                    <p className="text-[10px] md:text-xs text-purple-500 mt-0.5">{t("colorfulFlower")}</p>
-                  </div>
-                </div>
-
-                {/* Style 2 - 지브리 스타일 */}
-                <div
-                  className={`flex flex-col items-center ${activeStyle === 2 ? "scale-105 transition-transform" : ""}`}
-                  onMouseEnter={() => setActiveStyle(2)}
-                  onMouseLeave={() => setActiveStyle(null)}
-                >
-                  <div className="relative w-full max-w-[120px] sm:max-w-[144px] md:max-w-full mx-auto">
-                    {/* Decorative frame */}
-                    <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-sky-300 via-teal-200 to-sky-300 rounded-lg opacity-70 blur-sm"></div>
-
-                    {/* Image container */}
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg border-2 border-sky-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                      <div className="w-full h-full overflow-hidden">
-                        <img
-                          src="/ghibli-style-dog.png"
-                          alt="지브리 스타일 예시"
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                          loading="eager"
-                          style={{ imageRendering: "high-quality" }}
-                        />
-                      </div>
+                    {/* Label */}
+                    <div className="mt-3 md:mt-4 text-center">
+                      <p className="font-bold text-xs sm:text-sm md:text-base bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                        {style.name}
+                      </p>
+                      <p className="text-[10px] md:text-xs text-purple-500 mt-0.5">{style.description}</p>
                     </div>
                   </div>
-
-                  {/* Enhanced label */}
-                  <div className="mt-3 md:mt-4 text-center">
-                    <p className="font-bold text-xs sm:text-sm md:text-base bg-gradient-to-r from-sky-600 to-teal-500 bg-clip-text text-transparent">
-                      {t("animationStyle")}
-                    </p>
-                    <p className="text-[10px] md:text-xs text-sky-500 mt-0.5">{t("warmAtmosphere")}</p>
-                  </div>
-                </div>
-
-                {/* Style 3 - 야구 - 이미지 변경 */}
-                <div
-                  className={`flex flex-col items-center ${activeStyle === 3 ? "scale-105 transition-transform" : ""}`}
-                  onMouseEnter={() => setActiveStyle(3)}
-                  onMouseLeave={() => setActiveStyle(null)}
-                >
-                  <div className="relative w-full max-w-[120px] sm:max-w-[144px] md:max-w-full mx-auto">
-                    {/* Decorative frame */}
-                    <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-blue-300 via-indigo-200 to-blue-300 rounded-lg opacity-70 blur-sm"></div>
-
-                    {/* Image container */}
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg border-2 border-blue-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                      <div className="w-full h-full overflow-hidden">
-                        <img
-                          src="/baseball-dog-new.png"
-                          alt="야구 스타일 예시"
-                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                          loading="eager"
-                          style={{ imageRendering: "high-quality" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Enhanced label */}
-                  <div className="mt-3 md:mt-4 text-center">
-                    <p className="font-bold text-xs sm:text-sm md:text-base bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">
-                      {t("baseball")}
-                    </p>
-                    <p className="text-[10px] md:text-xs text-blue-500 mt-0.5">{t("teamInfoNeeded")}</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
 
-            {/* Auto-sliding Gallery Section - 영역 축소 및 상단 여백 추가 */}
+            {/* Auto-sliding Gallery Section */}
             <section className="mb-4 md:mb-6 mt-12 md:mt-16 pt-6 md:pt-8 border-t border-purple-100">
               <h2 className="text-base md:text-lg font-bold text-center mb-2 md:mb-3 bg-gradient-to-r from-purple-700 to-sky-700 bg-clip-text text-transparent">
                 {t("recentProfiles")}
@@ -588,13 +513,13 @@ function PetStudioPageContent() {
           </div>
         </main>
 
-        {/* Footer with consistent gray background */}
+        {/* Footer */}
         <div className="w-full bg-gray-100">
           <Footer />
         </div>
       </div>
 
-      {/* 마이페이지를 모달 대신 페이지로 표시 */}
+      {/* 마이페이지 */}
       {showMyPage && (
         <div className="fixed inset-0 bg-white z-50 overflow-auto">
           <MyPage onClose={() => setShowMyPage(false)} />
@@ -612,11 +537,13 @@ function PetStudioPageContent() {
   )
 }
 
-// 메인 컴포넌트 - 언어 컨텍스트 제공
+// 메인 컴포넌트 - 컨텍스트 제공
 export default function PetStudioPage() {
   return (
     <LanguageProvider>
-      <PetStudioPageContent />
+      <AppProvider>
+        <PetStudioPageContent />
+      </AppProvider>
     </LanguageProvider>
   )
 }

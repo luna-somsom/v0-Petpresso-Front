@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { AutoSlidingGallery } from "@/components/auto-sliding-gallery"
 import { Footer } from "@/components/footer"
 import { Sparkles, Menu, X, Star, Heart, PawPrint, User, LogOut } from "lucide-react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
@@ -20,6 +19,8 @@ import { AppProvider, useApp } from "@/contexts/app-context"
 import { useResponsive } from "@/hooks/use-responsive"
 import { STYLE_OPTIONS } from "@/constants"
 import type { ProfileCreationStep } from "@/types"
+// 기존 import 유지
+import { OptimizedSlidingGallery } from "@/components/optimized-sliding-gallery"
 
 // 언어 컨텍스트를 사용하는 내부 컴포넌트
 function PetStudioPageContent() {
@@ -507,7 +508,7 @@ function PetStudioPageContent() {
                 {t("recentProfiles")}
               </h2>
               <div className="overflow-hidden rounded-lg shadow-md relative">
-                <AutoSlidingGallery />
+                <OptimizedSlidingGallery />
               </div>
             </section>
           </div>

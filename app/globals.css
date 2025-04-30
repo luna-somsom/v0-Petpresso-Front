@@ -166,6 +166,54 @@ body {
   .rotate-neg90 {
     transform: rotate(-90deg);
   }
+
+  /* 애니메이션 성능 최적화를 위한 스타일 */
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* 스크롤바 숨김 스타일 최적화 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 이미지 렌더링 최적화 */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* 하드웨어 가속 활성화 */
+  }
+
+  /* 애니메이션 최적화 */
+  @keyframes optimized-marquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-optimized-marquee {
+    animation: optimized-marquee linear infinite;
+    animation-duration: 30s;
+    will-change: transform;
+  }
+
+  /* 모바일에서 애니메이션 속도 조정 */
+  @media (max-width: 768px) {
+    .animate-optimized-marquee {
+      animation-duration: 20s;
+    }
+  }
 }
 
 @layer base {

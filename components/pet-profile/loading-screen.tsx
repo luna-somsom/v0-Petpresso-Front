@@ -51,13 +51,14 @@ export function LoadingScreen({ onClose, onGoToMyPage }: LoadingScreenProps) {
   const [email, setEmail] = useState("pet-lover@example.com")
   const [petName, setPetName] = useState("룽지")
   const [petAge, setPetAge] = useState("3살")
+  const [petGender, setPetGender] = useState("남아")
   const [petSpecies, setPetSpecies] = useState("포메라니안")
   const [petFeatures, setPetFeatures] = useState(
     "활발하고 장난기가 많아요. 노란색 털에 동그란 눈이 매력적인 강아지입니다. 사람을 좋아하고 항상 꼬리를 흔들며 반겨줍니다.",
   )
 
   // 폼 완료 여부 확인
-  const isFormComplete = email && petName && petAge && petSpecies && petFeatures
+  const isFormComplete = email && petName && petAge && petGender && petSpecies && petFeatures
 
   // ===== 이펙트 =====
   // 모바일 기기 감지
@@ -88,7 +89,7 @@ export function LoadingScreen({ onClose, onGoToMyPage }: LoadingScreenProps) {
     e.preventDefault()
 
     // 폼 데이터 처리 (실제로는 API 호출 등이 여기에 들어감)
-    console.log({ email, petName, petAge, petSpecies, petFeatures })
+    console.log({ email, petName, petAge, petGender, petSpecies, petFeatures })
 
     // 결과 화면 표시
     setShowResultScreen(true)
@@ -209,8 +210,8 @@ export function LoadingScreen({ onClose, onGoToMyPage }: LoadingScreenProps) {
                     />
                   </div>
 
-                  {/* 나이 및 품종 입력 필드 (2열 그리드) */}
-                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2 md:gap-3">
+                  {/* 나이, 성별, 품종 입력 필드 (3열 그리드) */}
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3">
                     {/* 나이 입력 필드 */}
                     <div className="space-y-0.5 sm:space-y-1">
                       <Label htmlFor="petAge" className="text-[10px] sm:text-xs text-purple-600">
@@ -221,6 +222,21 @@ export function LoadingScreen({ onClose, onGoToMyPage }: LoadingScreenProps) {
                         placeholder={t("agePlaceholder")}
                         value={petAge}
                         onChange={(e) => setPetAge(e.target.value)}
+                        required
+                        className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
+                      />
+                    </div>
+
+                    {/* 성별 입력 필드 */}
+                    <div className="space-y-0.5 sm:space-y-1">
+                      <Label htmlFor="petGender" className="text-[10px] sm:text-xs text-purple-600">
+                        성별 <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="petGender"
+                        placeholder="예: 남아, 여아"
+                        value={petGender}
+                        onChange={(e) => setPetGender(e.target.value)}
                         required
                         className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
                       />

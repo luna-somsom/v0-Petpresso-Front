@@ -21,18 +21,19 @@ export function PetInfoForm({ onSubmit }: PetInfoFormProps) {
   const [email, setEmail] = useState("pet-lover@example.com")
   const [petName, setPetName] = useState("룽지")
   const [petAge, setPetAge] = useState("3살")
+  const [petGender, setPetGender] = useState("남아")
   const [petSpecies, setPetSpecies] = useState("포메라니안")
   const [petFeatures, setPetFeatures] = useState(
     "활발하고 장난기가 많아요. 노란색 털에 동그란 눈이 매력적인 강아지입니다. 사람을 좋아하고 항상 꼬리를 흔들며 반겨줍니다.",
   )
 
   // 폼 완료 여부 확인
-  const isFormComplete = email && petName && petAge && petSpecies && petFeatures
+  const isFormComplete = email && petName && petAge && petGender && petSpecies && petFeatures
 
   // 폼 제출 처리
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit({ email, petName, petAge, petSpecies, petFeatures })
+    onSubmit({ email, petName, petAge, petGender, petSpecies, petFeatures })
   }
 
   return (
@@ -68,8 +69,8 @@ export function PetInfoForm({ onSubmit }: PetInfoFormProps) {
         />
       </div>
 
-      {/* 나이 및 품종 입력 필드 (2열 그리드) */}
-      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+      {/* 나이, 성별, 품종 입력 필드 (3열 그리드) */}
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {/* 나이 입력 필드 */}
         <div className="space-y-1">
           <Label htmlFor="petAge" className="text-xs text-purple-600">
@@ -85,10 +86,25 @@ export function PetInfoForm({ onSubmit }: PetInfoFormProps) {
           />
         </div>
 
+        {/* 성별 입력 필드 */}
+        <div className="space-y-1">
+          <Label htmlFor="petGender" className="text-xs text-purple-600">
+            성별 <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            id="petGender"
+            placeholder="예: 남아, 여아"
+            value={petGender}
+            onChange={(e) => setPetGender(e.target.value)}
+            required
+            className="text-xs h-7 sm:h-8"
+          />
+        </div>
+
         {/* 품종 입력 필드 */}
         <div className="space-y-1">
           <Label htmlFor="petSpecies" className="text-xs text-purple-600">
-            종류/품종 <span className="text-red-500">*</span>
+            품종 <span className="text-red-500">*</span>
           </Label>
           <Input
             id="petSpecies"

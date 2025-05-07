@@ -13,6 +13,7 @@ export interface PetInfo {
   email: string
   petName: string
   petAge: string
+  petGender: string
   petSpecies: string
   petFeatures: string
 }

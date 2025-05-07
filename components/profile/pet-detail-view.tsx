@@ -50,10 +50,6 @@ export function PetDetailView({ pet }: PetDetailViewProps) {
                 <p className="text-sm font-medium text-purple-800">{pet.name}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-xs text-gray-500">종류</p>
-                <p className="text-sm font-medium text-purple-800">{pet.type}</p>
-              </div>
-              <div className="space-y-1">
                 <p className="text-xs text-gray-500">품종</p>
                 <p className="text-sm font-medium text-purple-800">{pet.breed}</p>
               </div>

@@ -36,7 +36,6 @@ export function PetProfileDetail({ onClose }: PetProfileDetailProps) {
   const pet = {
     id: 1,
     name: "멍이",
-    type: "강아지",
     breed: "포메라니안",
     age: 2,
     gender: "남아",
@@ -167,10 +166,6 @@ export function PetProfileDetail({ onClose }: PetProfileDetailProps) {
                 <div className="space-y-1">
                   <p className="text-xs text-gray-500">이름</p>
                   <p className="text-sm font-medium text-purple-800">{pet.name}</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-gray-500">종류</p>
-                  <p className="text-sm font-medium text-purple-800">{pet.type}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs text-gray-500">품종</p>

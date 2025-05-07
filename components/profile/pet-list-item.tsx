@@ -26,7 +26,7 @@ export function PetListItem({ pet, isSelected, onClick }: PetListItemProps) {
       <div className="flex-1 min-w-0">
         <h3 className="font-medium text-base text-purple-800">{pet.name}</h3>
         <p className="text-xs text-gray-600 truncate">
-          {pet.breed} • {pet.age}살
+          {pet.breed} • {pet.age}살 • {pet.gender}
         </p>
       </div>
       <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />

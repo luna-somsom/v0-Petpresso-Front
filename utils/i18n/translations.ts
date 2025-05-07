@@ -131,9 +131,13 @@ export const translations: Translations = {
     ko: "나이",
     ja: "年齢",
   },
+  gender: {
+    ko: "성별",
+    ja: "性別",
+  },
   species: {
-    ko: "종류/품종",
-    ja: "種類/品種",
+    ko: "품종",
+    ja: "品種",
   },
   features: {
     ko: "특징",
@@ -156,6 +160,10 @@ export const translations: Translations = {
   agePlaceholder: {
     ko: "예: 3살",
     ja: "例：3歳",
+  },
+  genderPlaceholder: {
+    ko: "예: 남아, 여아",
+    ja: "例：オス、メス",
   },
   speciesPlaceholder: {
     ko: "예: 말티즈, 코리안숏헤어",

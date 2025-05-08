@@ -49,39 +49,111 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
           <div className="px-1.5 sm:px-2 md:px-3 mt-1.5 sm:mt-2">
             <div className="grid grid-cols-3 gap-1 sm:gap-1.5 md:gap-2">
               {/* Row 1 - All with X marks */}
-              <div className="bg-gradient-to-br from-purple-200 to-sky-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-purple-700">
-                  {t("obscuredPhoto")}
-                </span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-purple-500">X</span>
-              </div>
-              <div className="bg-gradient-to-br from-sky-200 to-purple-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-sky-700">
-                  {t("withOthersPhoto")}
-                </span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-sky-500">X</span>
-              </div>
-              <div className="bg-gradient-to-br from-purple-200 to-sky-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-purple-700">
-                  {t("blurryPhoto")}
-                </span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-purple-500">X</span>
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img src="/images/covered-dog.png" alt="가려진 사진 예시" className="w-full h-full object-cover" />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    {t("obscuredPhoto")}
+                  </span>
+                </div>
+                {/* X 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-red-500">X</span>
+                </div>
               </div>
 
-              {/* Row 2 */}
-              <div className="bg-gradient-to-br from-sky-200 to-purple-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-sky-700">{t("soloPhoto")}</span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-green-500">O</span>
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img
+                    src="/images/sleeping-dog.png"
+                    alt="자고 있는 사진 예시"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    자고 있는 사진
+                  </span>
+                </div>
+                {/* X 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-red-500">X</span>
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-purple-200 to-sky-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-purple-700">
-                  {t("fullBodyPhoto")}
-                </span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-green-500">O</span>
+
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img src="/images/with-person.png" alt="같이 찍은 사진 예시" className="w-full h-full object-cover" />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    같이 찍은 사진
+                  </span>
+                </div>
+                {/* X 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-red-500">X</span>
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-sky-200 to-purple-200 rounded-md p-1 sm:p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square shadow-sm">
-                <span className="text-center text-[8px] sm:text-[10px] md:text-xs text-sky-700">{t("clearPhoto")}</span>
-                <span className="text-sm sm:text-base md:text-lg font-bold text-green-500">O</span>
+
+              {/* Row 2 - O 표시 네모들에 이미지 적용 */}
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img src="/images/solo-dog.png" alt="단독 사진 예시" className="w-full h-full object-cover" />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    {t("soloPhoto")}
+                  </span>
+                </div>
+                {/* O 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-green-500">O</span>
+                </div>
+              </div>
+
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img src="/images/full-body-dog.png" alt="전신 사진 예시" className="w-full h-full object-cover" />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    {t("fullBodyPhoto")}
+                  </span>
+                </div>
+                {/* O 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-green-500">O</span>
+                </div>
+              </div>
+
+              <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
+                {/* 배경 이미지 */}
+                <div className="absolute inset-0">
+                  <img src="/images/front-facing-dog.png" alt="정면 사진 예시" className="w-full h-full object-cover" />
+                </div>
+                {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
+                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                  <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
+                    정면 사진
+                  </span>
+                </div>
+                {/* O 표시 - 우측 하단에 배치 */}
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="text-base font-bold text-green-500">O</span>
+                </div>
               </div>
             </div>
           </div>
@@ -93,7 +165,7 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
             onClick={onContinue}
             className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-bold py-1 sm:py-1.5 md:py-2 px-4 sm:px-6 md:px-8 rounded-full text-xs sm:text-sm md:text-base shadow-md"
           >
-            {t("select1to3Photos")}
+            사진 업로드
           </Button>
         </div>
       </div>

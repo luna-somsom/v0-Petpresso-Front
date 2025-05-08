@@ -303,13 +303,10 @@ function PetStudioPageContent() {
                   <div className="relative px-4 py-3 md:px-6 md:py-4 z-10">
                     {/* PetPresso 강조 */}
                     <div className="mb-3 md:mb-5 relative">
-                      {/* 배경 효과 */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-300/30 via-sky-300/30 to-purple-300/30 rounded-full blur-lg"></div>
-
                       {/* 강조된 PetPresso 텍스트 */}
-                      <div className="relative inline-flex items-center justify-center py-1 px-4 md:py-2 md:px-6 rounded-full border-2 border-purple-300/50 shadow-lg bg-white/30 backdrop-blur-sm">
+                      <div className="relative inline-flex items-center justify-center">
                         {/* 강아지 발바닥 아이콘 */}
-                        <PawPrint className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 lg:h-10 lg:w-10 mr-2 md:mr-3 text-purple-600 transform rotate-neg90" />
+                        <PawPrint className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:h-8 lg:h-10 lg:w-10 mr-2 md:mr-3 text-purple-600 transform rotate-neg90" />
 
                         <span
                           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-cherry-bomb bg-gradient-to-r from-purple-600 via-sky-500 to-purple-600 bg-clip-text text-transparent drop-shadow-md tracking-wider"
@@ -350,11 +347,8 @@ function PetStudioPageContent() {
 
                 {/* 부제목 */}
                 <div className="relative inline-block">
-                  <p className="text-base sm:text-lg md:text-xl mb-4 md:mb-6 text-sky-600 font-medium px-3 py-1 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-purple-50 to-sky-50 shadow-sm border border-purple-100">
+                  <p className="text-base sm:text-lg md:text-xl mb-4 md:mb-6 text-sky-600 font-medium">
                     {t("subtitle")}
-                    <span className="absolute -right-1 -bottom-1 text-pink-400">
-                      <Heart className="h-4 w-4 md:h-5 md:w-5 fill-pink-400" />
-                    </span>
                   </p>
                 </div>
 
@@ -371,6 +365,45 @@ function PetStudioPageContent() {
                   <div className="h-0.5 w-12 md:w-16 bg-gradient-to-r from-sky-300 to-transparent rounded-full"></div>
                 </div>
               </section>
+
+              {/* Create Profile Button */}
+              <div className="flex justify-center mb-20 md:mb-28">
+                <div className="w-full max-w-sm md:max-w-lg mx-auto text-center">
+                  <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="relative overflow-hidden bg-gradient-to-r from-purple-500 via-pink-400 to-indigo-500 hover:from-purple-400 hover:via-pink-300 hover:to-indigo-400 text-white font-bold py-5 md:py-7 px-12 md:px-16 rounded-full text-xl md:text-2xl max-w-xl mx-auto shadow-2xl transform transition-all duration-300 hover:shadow-xl hover:translate-y-[4px] border-2 border-white/30 animate-glow">
+                        {/* 강화된 글로우 효과 */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-300/40 via-pink-300/40 to-indigo-300/40 opacity-50 blur-lg"></div>
+
+                        {/* 반짝이는 효과 */}
+                        <div className="absolute -top-2 -right-2 animate-pulse">
+                          <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-yellow-200" />
+                        </div>
+                        <div className="absolute -bottom-2 -left-2 animate-pulse delay-300">
+                          <Sparkles className="h-5 w-5 md:h-7 md:w-7 text-purple-200" />
+                        </div>
+
+                        {/* 버튼 내용 */}
+                        <div className="relative z-10 flex items-center justify-center">
+                          <span className="tracking-wide drop-shadow-md">펫 프로필 사진 만들기</span>
+                        </div>
+
+                        {/* 강화된 하이라이트 효과 */}
+                        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
+                        <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent
+                      className={`
+          p-0 overflow-hidden border-gradient-to-r from-purple-200 to-sky-200 shadow-lg
+          ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-md"}
+        `}
+                    >
+                      {renderProfileContent()}
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
 
               {/* Main images - Side by side layout */}
               <div className="mb-6 md:mb-8 max-w-4xl mx-auto">
@@ -417,33 +450,6 @@ function PetStudioPageContent() {
                   <p className="text-base md:text-lg font-medium bg-gradient-to-r from-purple-600 to-sky-600 bg-clip-text text-transparent inline-block px-3 md:px-4 py-1 md:py-2 border-b-2 border-purple-200">
                     {t("beforeAfter")}
                   </p>
-                </div>
-              </div>
-
-              {/* Create Profile Button */}
-              <div className="flex justify-center mb-8 md:mb-12">
-                <div className="w-full max-w-sm md:max-w-lg mx-auto text-center">
-                  <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
-                    <DialogTrigger asChild>
-                      <Button className="bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white font-bold py-5 md:py-6 px-10 md:px-14 rounded-full text-xl md:text-2xl w-full shadow-lg transform transition-transform hover:scale-105 relative">
-                        <div className="absolute -top-1 -right-1 animate-pulse">
-                          <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-yellow-200" />
-                        </div>
-                        <span className="drop-shadow-md">{t("createProfile")}</span>
-                        <div className="absolute -bottom-1 -left-1 animate-pulse delay-300">
-                          <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-yellow-200" />
-                        </div>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent
-                      className={`
-                        p-0 overflow-hidden border-gradient-to-r from-purple-200 to-sky-200 shadow-lg
-                        ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-md"}
-                      `}
-                    >
-                      {renderProfileContent()}
-                    </DialogContent>
-                  </Dialog>
                 </div>
               </div>
 

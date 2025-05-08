@@ -34,11 +34,18 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
         <div className="text-base sm:text-lg md:text-xl font-bold text-purple-800">{t("photoUploadGuide")}</div>
       </div>
 
+      {/* 무료 사용 안내 메시지 */}
+      <div className="mx-1.5 sm:mx-2 md:mx-3 mt-1.5 sm:mt-2 md:mt-3 bg-gradient-to-r from-yellow-100 to-amber-100 border-2 border-yellow-400 rounded-md p-1.5 sm:p-2 md:p-3 shadow-md">
+        <p className="text-center text-[10px] sm:text-xs md:text-sm font-bold text-amber-700 drop-shadow-sm">
+          프로필 사진은 한 계정당 무료로 2번까지 만들어보실 수 있어요!
+        </p>
+      </div>
+
       {/* Content Area - No Scroll */}
       <div className="flex-1 flex flex-col justify-between">
         <div>
           {/* Info Box - More compact */}
-          <div className="mx-1.5 sm:mx-2 md:mx-3 mt-1.5 sm:mt-2 bg-white/80 backdrop-blur-sm rounded-md p-1 sm:p-1.5 md:p-2 shadow-sm border border-purple-200">
+          <div className="mx-1.5 sm:mx-2 md:mx-3 mt-1.5 sm:mt-2 p-1 sm:p-1.5 md:p-2">
             <p className="text-center text-[10px] sm:text-xs md:text-sm text-purple-700 mb-0.5 sm:mb-1">
               {t("forBestResults")}
             </p>
@@ -54,8 +61,10 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
                 <div className="absolute inset-0">
                   <img src="/images/covered-dog.png" alt="가려진 사진 예시" className="w-full h-full object-cover" />
                 </div>
+                {/* 붉은 배경 오버레이 추가 */}
+                <div className="absolute inset-0 bg-red-200/30"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     {t("obscuredPhoto")}
                   </span>
@@ -75,8 +84,10 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
                     className="w-full h-full object-cover"
                   />
                 </div>
+                {/* 붉은 배경 오버레이 추가 */}
+                <div className="absolute inset-0 bg-red-200/30"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     자고 있는 사진
                   </span>
@@ -92,8 +103,10 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
                 <div className="absolute inset-0">
                   <img src="/images/with-person.png" alt="같이 찍은 사진 예시" className="w-full h-full object-cover" />
                 </div>
+                {/* 붉은 배경 오버레이 추가 */}
+                <div className="absolute inset-0 bg-red-200/30"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     같이 찍은 사진
                   </span>

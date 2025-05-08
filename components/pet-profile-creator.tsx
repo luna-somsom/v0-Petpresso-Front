@@ -4,11 +4,11 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import type { Step } from "./pet-profile/types"
-import { GuidelinesScreen } from "./pet-profile/guidelines-screen"
 import { GalleryScreen } from "./pet-profile/gallery-screen"
 import { StyleSelectionScreen } from "./pet-profile/style-selection-screen"
 import { LoadingScreen } from "./pet-profile/loading-screen"
 import { UploadingScreen } from "./pet-profile/uploading-screen"
+import { PhotoGuidelinesScreen } from "./pet-profile/photo-guidelines-screen"
 
 interface PetProfileCreatorProps {
   children: React.ReactNode
@@ -33,6 +33,7 @@ export function PetProfileCreator({
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>(initialSelectedPhotos)
   const [selectedStyle, setSelectedStyle] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [usageLimitReached, setUsageLimitReached] = useState(false)
 
   // Check if the device is mobile
   useEffect(() => {
@@ -89,11 +90,16 @@ export function PetProfileCreator({
     setStep("loading")
   }
 
+  // 무료 횟수 소진 상태 변경 처리
+  const handleUsageLimitChange = (isLimitReached: boolean) => {
+    setUsageLimitReached(isLimitReached)
+  }
+
   const renderContent = () => {
     switch (step) {
       case "guidelines":
         return (
-          <GuidelinesScreen
+          <PhotoGuidelinesScreen
             onClose={handleClose}
             onContinue={() => setStep(skipGalleryStep ? "styleSelection" : "gallery")}
           />
@@ -119,7 +125,7 @@ export function PetProfileCreator({
       case "uploading":
         return <UploadingScreen onClose={handleClose} onComplete={handleUploadingComplete} />
       case "loading":
-        return <LoadingScreen onClose={handleClose} onGoToMyPage={onGoToMyPage} />
+        return <LoadingScreen onClose={handleClose} onGoToMyPage={onGoToMyPage} usageLimitReached={usageLimitReached} />
       default:
         return null
     }

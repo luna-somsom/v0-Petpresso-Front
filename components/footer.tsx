@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/utils/i18n/language-context"
-import { ExternalLink, Mail, Phone } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
 export function Footer() {
@@ -32,42 +32,23 @@ export function Footer() {
           {/* 회사 정보 */}
           <div className="flex flex-col md:flex-row justify-between mb-1 sm:mb-2 md:mb-3">
             <div className="mb-1 md:mb-0">
-              <h3 className="text-xs sm:text-sm md:text-base font-bold text-blue-900 mb-0.5">주) 리콘랩스</h3>
-              <p className="text-[8px] sm:text-[10px] md:text-xs text-blue-900">대표이사: 반성훈</p>
+              <h3 className="text-[8px] sm:text-[10px] md:text-xs font-bold text-blue-900 mb-0.5">주) 리콘랩스</h3>
+              <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900">대표이사: 반성훈</p>
             </div>
             <div>
-              <p className="text-[8px] sm:text-[10px] md:text-xs text-blue-900 mb-0.5">
+              <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900 mb-0.5">
                 통신판매업신고번호: 2021-서울강남-04763
               </p>
-              <p className="text-[8px] sm:text-[10px] md:text-xs text-blue-900">사업자등록번호: 497-86-01565</p>
+              <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900">사업자등록번호: 497-86-01565</p>
             </div>
           </div>
 
           {/* 주소 정보 */}
-          <div className="pt-1 sm:pt-1.5 md:pt-2 mb-1 sm:mb-1.5 md:mb-2">
-            <p className="text-[8px] sm:text-[10px] md:text-xs text-blue-900 mb-0.5">서울 강남구 학동로53길 30</p>
-            <p className="text-[8px] sm:text-[10px] md:text-xs text-blue-900">
+          <div className="pt-0.5 sm:pt-1 md:pt-1.5 mb-1 sm:mb-1.5 md:mb-2">
+            <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900 mb-0.5">서울 강남구 학동로53길 30</p>
+            <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900">
               30, Hakdong-ro 53-gil, Gangnam-gu, Seoul
             </p>
-          </div>
-
-          {/* 문의 연락처 */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-3 border-t border-b border-gray-200 py-2">
-            <div className="flex items-center">
-              <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-blue-700 mr-1" />
-              <a
-                href="mailto:contact@petpresso.com"
-                className="text-[8px] sm:text-[10px] md:text-xs text-blue-700 hover:underline"
-              >
-                contact@petpresso.com
-              </a>
-            </div>
-            <div className="flex items-center">
-              <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-blue-700 mr-1" />
-              <a href="tel:02-1234-5678" className="text-[8px] sm:text-[10px] md:text-xs text-blue-700 hover:underline">
-                02-1234-5678
-              </a>
-            </div>
           </div>
 
           {/* 약관 및 정책 링크 */}
@@ -89,17 +70,17 @@ export function Footer() {
 
           {/* 저작권 정보 */}
           <div className="text-center">
-            <p className="text-[6px] sm:text-[8px] md:text-[10px] text-blue-900 mb-1">
+            <p className="text-[5px] sm:text-[6px] md:text-[8px] text-blue-900 mb-0.5">
               Copyright ⓒ 2025 리콘랩스(RECON Labs) All rights reserved.
             </p>
             <a
               href="https://www.reconlabs.ai/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center text-[8px] sm:text-[10px] md:text-xs text-blue-700 hover:text-blue-900 transition-colors"
+              className="inline-flex items-center text-[6px] sm:text-[8px] md:text-[10px] text-blue-700 hover:text-blue-900 transition-colors"
             >
               <span>https://www.reconlabs.ai/</span>
-              <ExternalLink className="ml-1 h-2 w-2 sm:h-3 sm:w-3" />
+              <ExternalLink className="ml-0.5 h-1.5 w-1.5 sm:h-2 sm:w-2" />
             </a>
           </div>
         </div>

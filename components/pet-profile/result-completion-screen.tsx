@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Sparkles, Download, Share2, Heart, CheckCircle } from "lucide-react"
+import { Sparkles, Download, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/utils/i18n/language-context"
 import confetti from "canvas-confetti"
 
@@ -15,7 +15,6 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
   const { t } = useLanguage()
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
-  const [liked, setLiked] = useState(false)
 
   // 로딩 애니메이션 및 진행 상태 업데이트
   useEffect(() => {
@@ -66,11 +65,6 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
     return () => clearInterval(timer)
   }, [])
 
-  // 좋아요 토글
-  const toggleLike = () => {
-    setLiked(!liked)
-  }
-
   return (
     <div className="bg-gradient-to-b from-purple-50 via-sky-50 to-white h-full flex flex-col">
       <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
@@ -95,7 +89,6 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
               </div>
             </div>
 
-            {/* 진행 상태 표시 - 모바일에서 더 작게 */}
             <div className="w-full max-w-xs mb-3 sm:mb-4 px-4 sm:px-0">
               <div className="h-1.5 sm:h-2 w-full bg-gray-200 rounded-full overflow-hidden">
                 <div
@@ -127,16 +120,6 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 to-sky-400 rounded-lg blur opacity-30"></div>
               <div className="relative rounded-lg overflow-hidden shadow-lg">
                 <img src="/result-profile.png" alt={`${petName}의 프로필 사진`} className="w-full h-auto" />
-
-                {/* 이미지 위에 표시되는 좋아요 버튼 - 모바일에서 더 작게 */}
-                <button
-                  onClick={toggleLike}
-                  className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white/80 hover:bg-white p-1.5 sm:p-2 rounded-full shadow-md transition-all"
-                >
-                  <Heart
-                    className={`h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 ${liked ? "text-red-500 fill-red-500" : "text-gray-500"}`}
-                  />
-                </button>
               </div>
             </div>
 
@@ -145,21 +128,16 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
 
             {/* 설명 */}
             <p className="text-xs sm:text-sm text-center text-sky-600 mb-4 sm:mb-6 max-w-xs px-4 sm:px-0">
-              {t("profileDescription")}
+              멋진 스튜디오 프로필 사진이 완성되었습니다.
+              <br />
+              다운로드 버튼을 눌러 저장하세요.
             </p>
 
             {/* 액션 버튼 - 모바일에서 더 작게 */}
-            <div className="flex gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
+            <div className="flex mb-4 sm:mb-6">
               <Button className="flex items-center bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-3">
                 <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 {t("download")}
-              </Button>
-              <Button
-                variant="outline"
-                className="flex items-center border-purple-300 text-purple-700 hover:bg-purple-50 text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-3"
-              >
-                <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                {t("share")}
               </Button>
             </div>
           </div>

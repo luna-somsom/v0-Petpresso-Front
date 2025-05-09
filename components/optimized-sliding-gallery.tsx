@@ -5,6 +5,7 @@ import type React from "react"
 import { useRef, useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useResponsive } from "@/hooks/use-responsive"
+import Image from "next/image"
 
 interface OptimizedSlidingGalleryProps {
   className?: string
@@ -188,15 +189,13 @@ export function OptimizedSlidingGallery({ className }: OptimizedSlidingGalleryPr
                 <div className="w-full h-full relative">
                   {/* Next/Image 컴포넌트로 교체하여 이미지 최적화 */}
                   <div className="relative w-full h-full">
-                    <img
+                    <Image
                       src={item.imageSrc || "/placeholder.svg"}
                       alt={`${item.name}의 프로필 사진`}
-                      className="w-full h-full object-cover"
-                      loading="lazy" // 지연 로딩으로 초기 로딩 성능 향상
-                      style={{
-                        imageRendering: "high-quality",
-                        transform: "translateZ(0)", // 하드웨어 가속 활성화
-                      }}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 120px, 200px"
                     />
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-purple-900/70 to-transparent p-1 md:p-2">

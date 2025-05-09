@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/utils/i18n/language-context"
+import Image from "next/image"
 
 interface PhotoGuidelinesScreenProps {
   onClose: () => void
@@ -58,8 +59,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
               {/* Row 1 - All with X marks */}
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img src="/images/covered-dog.png" alt="가려진 사진 예시" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/covered-dog.png" alt="가려진 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
                 <div className="absolute inset-0 bg-red-200/30"></div>
@@ -77,12 +78,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img
-                    src="/images/sleeping-dog.png"
-                    alt="자고 있는 사진 예시"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/sleeping-dog.png" alt="자고 있는 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
                 <div className="absolute inset-0 bg-red-200/30"></div>
@@ -100,8 +97,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img src="/images/with-person.png" alt="같이 찍은 사진 예시" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/with-person.png" alt="같이 찍은 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
                 <div className="absolute inset-0 bg-red-200/30"></div>
@@ -120,8 +117,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
               {/* Row 2 - O 표시 네모들에 이미지 적용 */}
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img src="/images/solo-dog.png" alt="단독 사진 예시" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/solo-dog.png" alt="단독 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
                 <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
@@ -137,8 +134,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img src="/images/full-body-dog.png" alt="전신 사진 예시" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/full-body-dog.png" alt="전신 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
                 <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
@@ -154,8 +151,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0">
-                  <img src="/images/front-facing-dog.png" alt="정면 사진 예시" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 relative">
+                  <Image src="/images/front-facing-dog.png" alt="정면 사진 예시" fill className="object-cover" />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
                 <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">

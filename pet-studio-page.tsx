@@ -19,6 +19,7 @@ import { useResponsive } from "@/hooks/use-responsive"
 import { STYLE_OPTIONS } from "@/constants"
 import type { ProfileCreationStep } from "@/types"
 import { OptimizedSlidingGallery } from "@/components/optimized-sliding-gallery"
+import Image from "next/image"
 
 // 언어 컨텍스트를 사용하는 내부 컴포넌트
 function PetStudioPageContent() {
@@ -410,13 +411,13 @@ function PetStudioPageContent() {
                 {/* Left image - Home photo */}
                 <div className="flex flex-col items-center">
                   <div className="w-full max-w-xs mx-auto">
-                    <div className="overflow-hidden rounded-2xl shadow-md aspect-square">
-                      <img
+                    <div className="overflow-hidden rounded-2xl shadow-md aspect-square relative">
+                      <Image
                         src="/kancho-home.jpeg"
                         alt="강아지 칸쵸의 일상 사진"
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                        style={{ imageRendering: "high-quality" }}
+                        fill
+                        className="object-cover"
+                        priority
                       />
                     </div>
                   </div>
@@ -428,13 +429,13 @@ function PetStudioPageContent() {
                 {/* Right image - Studio photo */}
                 <div className="flex flex-col items-center">
                   <div className="w-full max-w-xs mx-auto">
-                    <div className="overflow-hidden rounded-2xl shadow-md aspect-square">
-                      <img
+                    <div className="overflow-hidden rounded-2xl shadow-md aspect-square relative">
+                      <Image
                         src="/kancho-profile.png"
                         alt="강아지 칸쵸의 프로필 사진"
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                        style={{ imageRendering: "high-quality" }}
+                        fill
+                        className="object-cover"
+                        priority
                       />
                     </div>
                   </div>
@@ -455,13 +456,8 @@ function PetStudioPageContent() {
             {/* 부시시한 덕선이 이미지 섹션 */}
             <section className="text-center mb-6 md:mb-8">
               <div className="flex flex-col items-center">
-                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-purple-200 shadow-lg mb-2 sm:mb-3">
-                  <img
-                    src="/duksun.jpeg"
-                    alt="부시시한 덕선이"
-                    className="w-full h-full object-cover"
-                    style={{ imageRendering: "high-quality" }}
-                  />
+                <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-purple-200 shadow-lg mb-2 sm:mb-3 relative">
+                  <Image src="/duksun.jpeg" alt="부시시한 덕선이" fill className="object-cover" priority />
                 </div>
                 <p className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                   {t("duksunTransformed")}
@@ -472,7 +468,7 @@ function PetStudioPageContent() {
             {/* Photo Style Options */}
             <section className="mb-6 md:mb-8">
               <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-8">
-                {STYLE_OPTIONS.map((style) => (
+                {STYLE_OPTIONS.map((style, index) => (
                   <div
                     key={style.id}
                     className={`flex flex-col items-center ${activeStyle === style.id ? "scale-105 transition-transform" : ""}`}
@@ -485,13 +481,13 @@ function PetStudioPageContent() {
 
                       {/* Image container */}
                       <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg border-2 border-purple-200 transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                        <div className="w-full h-full overflow-hidden">
-                          <img
+                        <div className="w-full h-full overflow-hidden relative">
+                          <Image
                             src={style.imageSrc || "/placeholder.svg"}
                             alt={`${style.name} 예시`}
-                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                            loading="eager"
-                            style={{ imageRendering: "high-quality" }}
+                            fill
+                            className="object-cover transition-transform duration-700 hover:scale-110"
+                            priority={index < 3} // 처음 3개 이미지만 priority 설정
                           />
                         </div>
                       </div>

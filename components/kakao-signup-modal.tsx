@@ -94,7 +94,7 @@ export function KakaoSignupModal({
       <DialogContent
         className={`
           bg-gradient-to-b from-purple-50 via-sky-50 to-white border-purple-200
-          ${isMobile ? "w-[95vw] max-w-[95vw] p-3" : "sm:max-w-md sm:p-6"}
+          ${isMobile ? "w-[95vw] max-w-[95vw] p-3" : "sm:max-w-2xl sm:p-6"}
         `}
       >
         {step === "signup" ? (

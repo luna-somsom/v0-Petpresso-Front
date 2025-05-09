@@ -116,7 +116,7 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
             </div>
 
             {/* 결과 이미지 - 모바일에서 더 작게 */}
-            <div className="relative mb-4 sm:mb-6 md:mb-8 w-full max-w-[250px] sm:max-w-xs md:max-w-sm">
+            <div className="relative mb-4 sm:mb-6 md:mb-8 w-full max-w-[300px] sm:max-w-md md:max-w-lg mx-auto">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 to-sky-400 rounded-lg blur opacity-30"></div>
               <div className="relative rounded-lg overflow-hidden shadow-lg">
                 <img src="/result-profile.png" alt={`${petName}의 프로필 사진`} className="w-full h-auto" />

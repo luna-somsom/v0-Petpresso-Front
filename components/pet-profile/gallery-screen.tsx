@@ -140,7 +140,7 @@ export function GalleryScreen({
       <div className="flex-1 overflow-y-auto relative">
         {/* Gallery Grid */}
         <div className="p-1.5 sm:p-2 md:p-3 pb-8 sm:pb-10">
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-1.5 md:gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-1 sm:gap-1.5 md:gap-2">
             {currentPagePhotos.map((photo) => (
               <div
                 key={photo.id}
@@ -228,7 +228,7 @@ export function GalleryScreen({
         {/* Selected Photos */}
         <div className="bg-gradient-to-br from-purple-50 to-sky-50 rounded-md shadow-inner">
           {selectedPhotos.length === 0 ? (
-            <div className="h-10 sm:h-12 md:h-14 flex items-center justify-center">
+            <div className="h-12 sm:h-14 md:h-16 flex items-center justify-center">
               <span className="text-purple-400 text-[10px] sm:text-xs md:text-sm">{t("noSelectedPhotos")}</span>
             </div>
           ) : (

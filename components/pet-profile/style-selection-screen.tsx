@@ -85,7 +85,7 @@ export function StyleSelectionScreen({
 
       {/* Style Selection Area - Scrollable */}
       <div className="flex-1 overflow-y-auto p-1.5 sm:p-2 md:p-3 bg-gradient-to-b from-purple-50 to-sky-50">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 mb-1.5 sm:mb-2 md:mb-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3 md:mb-4">
           {styles.map((style) => (
             <div
               key={style.id}
@@ -96,7 +96,7 @@ export function StyleSelectionScreen({
               } ${!style.available ? "opacity-80" : ""}`}
               onClick={() => handleStyleSelect(style.id)}
             >
-              <div className="aspect-[3/4] w-full max-h-20 sm:max-h-24 md:max-h-32 rounded-lg overflow-hidden mb-0.5 sm:mb-1 cursor-pointer shadow-sm relative">
+              <div className="aspect-[3/4] w-full max-h-24 sm:max-h-28 md:max-h-36 rounded-lg overflow-hidden mb-0.5 sm:mb-1 cursor-pointer shadow-sm relative">
                 <div className="w-full h-full relative">
                   {/* Style image */}
                   <img

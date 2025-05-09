@@ -54,8 +54,8 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
           </div>
 
           {/* Guidelines Grid - More compact */}
-          <div className="px-1.5 sm:px-2 md:px-3 mt-1.5 sm:mt-2">
-            <div className="grid grid-cols-3 gap-1 sm:gap-1.5 md:gap-2">
+          <div className="px-2 sm:px-4 md:px-6 mt-2 sm:mt-3 md:mt-4">
+            <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4 lg:gap-6">
               {/* Row 1 - All with X marks */}
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}

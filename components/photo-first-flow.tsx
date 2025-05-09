@@ -91,7 +91,7 @@ export function PhotoFirstFlow({ children, onGoToMyPage, isLoggedIn }: PhotoFirs
           className={`
             p-0 overflow-hidden max-h-[90vh] 
             border-gradient-to-r from-purple-200 to-sky-200 shadow-lg
-            ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-md"}
+            ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-2xl"}
           `}
         >
           {renderContent()}

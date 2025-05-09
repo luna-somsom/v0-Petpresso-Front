@@ -92,9 +92,9 @@ export function LoadingScreen({ onClose, onGoToMyPage, usageLimitReached = false
     switch (screenState) {
       case "input":
         return (
-          <div className="flex flex-col sm:flex-row h-full gap-2 sm:gap-3 md:gap-4">
+          <div className="flex flex-col sm:flex-row h-full gap-2 sm:gap-4 md:gap-6">
             {/* 왼쪽 영역 - 안내 메시지 */}
-            <div className="flex flex-col items-center justify-center sm:w-2/5 p-1.5 sm:p-2 md:p-3">
+            <div className="flex flex-col items-center justify-center sm:w-1/3 p-2 sm:p-3 md:p-4">
               {/* 토글 스위치 - 무료 횟수 소진 상태 시뮬레이션 */}
               <div className="w-full flex items-center justify-end mb-2 sm:mb-3 bg-gray-100/50 p-1 rounded-md">
                 <div className="flex items-center space-x-2">
@@ -111,7 +111,7 @@ export function LoadingScreen({ onClose, onGoToMyPage, usageLimitReached = false
               </h3>
 
               {/* 로딩 애니메이션 (배경 이미지 포함) */}
-              <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 rounded-md mb-2 sm:mb-3 md:mb-4 relative overflow-hidden shadow-md">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-md mb-2 sm:mb-3 md:mb-4 relative overflow-hidden shadow-md">
                 <img src="/studio-puppy.png" alt="꽃 장식을 한 강아지" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-300/30 to-sky-300/30"></div>
               </div>
@@ -145,7 +145,7 @@ export function LoadingScreen({ onClose, onGoToMyPage, usageLimitReached = false
             </div>
 
             {/* 오른쪽 영역 - 반려동물 정보 입력 폼 */}
-            <div className="sm:w-3/5">
+            <div className="sm:w-2/3">
               <PetInfoInput onSubmit={handlePetInfoSubmit} />
             </div>
           </div>

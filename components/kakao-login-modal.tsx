@@ -51,7 +51,7 @@ export function KakaoLoginModal({ onLogin }: KakaoLoginModalProps) {
           로그인
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-gradient-to-b from-purple-50 via-sky-50 to-white border-purple-200">
+      <DialogContent className="sm:max-w-2xl bg-gradient-to-b from-purple-50 via-sky-50 to-white border-purple-200">
         {step === "login" ? (
           <>
             <DialogHeader>

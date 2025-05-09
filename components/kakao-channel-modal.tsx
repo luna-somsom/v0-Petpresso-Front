@@ -42,7 +42,7 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
       <DialogContent
         className={`
           bg-gradient-to-b from-yellow-50 via-white to-white border-yellow-200 p-0
-          ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-md"}
+          ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-2xl"}
         `}
       >
         <div className="flex flex-col">

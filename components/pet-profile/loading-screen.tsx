@@ -16,12 +16,18 @@ interface LoadingScreenProps {
   onClose: () => void
   onGoToMyPage?: () => void
   usageLimitReached?: boolean
+  selectedPhotos?: number[]
 }
 
 // 화면 상태 타입
 type ScreenState = "input" | "completion" | "result"
 
-export function LoadingScreen({ onClose, onGoToMyPage, usageLimitReached = false }: LoadingScreenProps) {
+export function LoadingScreen({
+  onClose,
+  onGoToMyPage,
+  usageLimitReached = false,
+  selectedPhotos = [],
+}: LoadingScreenProps) {
   const { t } = useLanguage()
 
   // 화면 상태
@@ -146,7 +152,7 @@ export function LoadingScreen({ onClose, onGoToMyPage, usageLimitReached = false
 
             {/* 오른쪽 영역 - 반려동물 정보 입력 폼 */}
             <div className="sm:w-2/3">
-              <PetInfoInput onSubmit={handlePetInfoSubmit} />
+              <PetInfoInput onSubmit={handlePetInfoSubmit} selectedPhotos={selectedPhotos} />
             </div>
           </div>
         )

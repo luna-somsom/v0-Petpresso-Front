@@ -15,6 +15,14 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
   const { t } = useLanguage()
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Check if running on the client-side and determine if it's a mobile device
+    if (typeof window !== "undefined") {
+      setIsMobile(/Mobi|Android/i.test(navigator.userAgent))
+    }
+  }, [])
 
   // 로딩 애니메이션 및 진행 상태 업데이트
   useEffect(() => {
@@ -128,18 +136,20 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
 
             {/* 설명 */}
             <p className="text-xs sm:text-sm text-center text-sky-600 mb-4 sm:mb-6 max-w-xs px-4 sm:px-0">
-              멋진 스튜디오 프로필 사진이 완성되었습니다.
-              <br />
-              다운로드 버튼을 눌러 저장하세요.
+              {isMobile
+                ? "멋진 스튜디오 프로필 사진이 완성되었습니다.\n화면을 꾹 눌러 사진을 저장하세요."
+                : "멋진 스튜디오 프로필 사진이 완성되었습니다.\n다운로드 버튼을 눌러 저장하세요."}
             </p>
 
-            {/* 액션 버튼 - 모바일에서 더 작게 */}
-            <div className="flex mb-4 sm:mb-6">
-              <Button className="flex items-center bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-3">
-                <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                {t("download")}
-              </Button>
-            </div>
+            {/* 액션 버튼 - 모바일에서는 표시하지 않음 */}
+            {!isMobile && (
+              <div className="flex mb-4 sm:mb-6">
+                <Button className="flex items-center bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-3">
+                  <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  {t("download")}
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -31,11 +31,11 @@ export function OptimizedSlidingGallery({ className }: OptimizedSlidingGalleryPr
   // 실제 갤러리 아이템
   const galleryItems: PetProfile[] = [
     { id: 1, name: "곰순이", imageSrc: "/pet-profiles/gomsooni.png", style: "꽃단장 프로필" },
-    { id: 2, name: "푸딩", imageSrc: "/pet-profiles/pudding.png", style: "지브리 스타일" },
-    { id: 3, name: "냥이", imageSrc: "/pet-profiles/nyangi.png", style: "야구" },
+    { id: 2, name: "푸딩", imageSrc: "/pet-profiles/pudding.png", style: "꽃단장 프로필" },
+    { id: 3, name: "냥이", imageSrc: "/pet-profiles/nyangi.png", style: "꽃단장 프로필" },
     { id: 4, name: "로이", imageSrc: "/pet-profiles/roy.png", style: "꽃단장 프로필" },
-    { id: 5, name: "루카", imageSrc: "/pet-profiles/luka.png", style: "지브리 스타일" },
-    { id: 6, name: "룽지", imageSrc: "/pet-profiles/roongji.png", style: "야구" },
+    { id: 5, name: "루카", imageSrc: "/pet-profiles/luka.png", style: "꽃단장 프로필" },
+    { id: 6, name: "룽지", imageSrc: "/pet-profiles/roongji.png", style: "꽃단장 프로필" },
     { id: 7, name: "밀크", imageSrc: "/pet-profiles/milk.png", style: "꽃단장 프로필" },
   ]
 

@@ -59,8 +59,8 @@ export function GalleryScreen({
     { id: 12, src: "/flower-profile-dog.png" },
   ]
 
-  // 페이지당 사진 개수와 총 페이지 수 계산
-  const photosPerPage = 12
+  // 페이지당 사진 개수와 총 페이지 수 계산 - 모바일에서는 더 적은 수의 사진 표시
+  const photosPerPage = isMobile ? 8 : 12
   const totalPages = Math.ceil(galleryPhotos.length / photosPerPage)
 
   // 현재 페이지의 사진들만 필터링
@@ -104,7 +104,7 @@ export function GalleryScreen({
 
   return (
     <div className="flex flex-col h-full max-h-[80vh] sm:max-h-[85vh] bg-gradient-to-b from-purple-50 via-sky-50 to-white">
-      {/* Header */}
+      {/* Header - 모바일에서 더 작게 */}
       <div className="flex justify-between items-center p-1.5 sm:p-2 md:p-3 border-b border-purple-200">
         {!skipBackButton ? (
           <Button
@@ -131,16 +131,16 @@ export function GalleryScreen({
         </Button>
       </div>
 
-      {/* Gallery Title */}
+      {/* Gallery Title - 모바일에서 더 작게 */}
       <div className="text-center text-[10px] sm:text-xs md:text-sm text-purple-500 py-0.5 sm:py-1 md:py-2 border-b border-purple-100">
         {t("myGallery")}
       </div>
 
-      {/* Gallery Content - 모바일 반응형 개선 */}
+      {/* Gallery Content - 모바일 최적화 */}
       <div className="flex-1 overflow-y-auto relative">
-        {/* Gallery Grid */}
+        {/* Gallery Grid - 모바일에서 3열, 태블릿에서 4열, 데스크탑에서 6열 */}
         <div className="p-1.5 sm:p-2 md:p-3 pb-8 sm:pb-10">
-          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-1 sm:gap-1.5 md:gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-1 sm:gap-1.5 md:gap-2">
             {currentPagePhotos.map((photo) => (
               <div
                 key={photo.id}
@@ -154,6 +154,7 @@ export function GalleryScreen({
                     src={photo.src || "/placeholder.svg"}
                     alt={`사진 ${photo.id}`}
                     className="w-full h-full object-cover rounded-md"
+                    loading="lazy"
                   />
                 </div>
                 {selectedPhotos.includes(photo.id) && (
@@ -166,7 +167,7 @@ export function GalleryScreen({
           </div>
         </div>
 
-        {/* Navigation Buttons - 페이지가 2개 이상일 때만 표시 */}
+        {/* Navigation Buttons - 페이지가 2개 이상일 때만 표시, 모바일에서 더 크게 */}
         {totalPages > 1 && (
           <>
             <div className="absolute left-1 top-1/2 transform -translate-y-1/2 z-10">
@@ -175,9 +176,9 @@ export function GalleryScreen({
                 size="icon"
                 onClick={goToPrevPage}
                 disabled={currentPage === 0}
-                className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
+                className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
               >
-                <ChevronLeft className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4" />
+                <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
               </Button>
             </div>
             <div className="absolute right-1 top-1/2 transform -translate-y-1/2 z-10">
@@ -186,18 +187,20 @@ export function GalleryScreen({
                 size="icon"
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages - 1}
-                className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
+                className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
               >
-                <ChevronRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4" />
+                <ChevronRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
               </Button>
             </div>
 
-            {/* Page Indicator */}
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 py-1 bg-gradient-to-t from-white/80 to-transparent">
+            {/* Page Indicator - 모바일에서 더 크게 */}
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 py-1.5 bg-gradient-to-t from-white/80 to-transparent">
               {Array.from({ length: totalPages }).map((_, index) => (
                 <div
                   key={index}
-                  className={`h-1.5 rounded-full ${currentPage === index ? "w-4 bg-purple-500" : "w-1.5 bg-purple-300"}`}
+                  className={`h-1.5 sm:h-2 rounded-full ${
+                    currentPage === index ? "w-4 sm:w-5 bg-purple-500" : "w-1.5 sm:w-2 bg-purple-300"
+                  }`}
                   onClick={() => setCurrentPage(index)}
                 ></div>
               ))}
@@ -206,8 +209,8 @@ export function GalleryScreen({
         )}
       </div>
 
-      {/* Selected Photos Section */}
-      <div className="border-t border-purple-200 p-1.5 sm:p-2 md:p-3 bg-white">
+      {/* Selected Photos Section - 모바일에서 더 크게 */}
+      <div className="border-t border-purple-200 p-2 sm:p-2.5 md:p-3 bg-white">
         {/* Header */}
         <div className="flex justify-between items-center mb-1.5 sm:mb-2">
           <div className="text-[10px] sm:text-xs md:text-sm font-medium text-purple-700">{t("selectedPhotos")}</div>
@@ -218,17 +221,17 @@ export function GalleryScreen({
             <Button
               onClick={handleComplete}
               disabled={selectedPhotos.length < 1}
-              className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-medium py-0.5 sm:py-1 md:py-1.5 px-2 sm:px-3 md:px-4 rounded-md text-[10px] sm:text-xs md:text-sm shadow-sm disabled:opacity-50"
+              className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-medium py-1 sm:py-1.5 md:py-2 px-3 sm:px-4 md:px-5 rounded-md text-[10px] sm:text-xs md:text-sm shadow-sm disabled:opacity-50"
             >
               {t("complete")}
             </Button>
           </div>
         </div>
 
-        {/* Selected Photos */}
+        {/* Selected Photos - 모바일에서 더 크게 */}
         <div className="bg-gradient-to-br from-purple-50 to-sky-50 rounded-md shadow-inner">
           {selectedPhotos.length === 0 ? (
-            <div className="h-12 sm:h-14 md:h-16 flex items-center justify-center">
+            <div className="h-14 sm:h-16 md:h-18 flex items-center justify-center">
               <span className="text-purple-400 text-[10px] sm:text-xs md:text-sm">{t("noSelectedPhotos")}</span>
             </div>
           ) : (
@@ -242,7 +245,7 @@ export function GalleryScreen({
                 return (
                   <div
                     key={`selected-${photoId}`}
-                    className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 bg-gradient-to-br from-purple-200 to-sky-200 rounded-md relative shadow-sm"
+                    className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex-shrink-0 bg-gradient-to-br from-purple-200 to-sky-200 rounded-md relative shadow-sm"
                     onClick={() => handlePhotoSelect(photoId)}
                   >
                     <div className="w-full h-full flex items-center justify-center">
@@ -254,17 +257,17 @@ export function GalleryScreen({
                         />
                       )}
                     </div>
-                    {/* X 버튼 */}
-                    <div className="absolute top-0.5 sm:top-1 right-0.5 sm:right-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 flex items-center justify-center">
-                      <X className="h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 text-white" />
+                    {/* X 버튼 - 모바일에서 더 크게 */}
+                    <div className="absolute top-0.5 sm:top-1 right-0.5 sm:right-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center">
+                      <X className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-white" />
                     </div>
                   </div>
                 )
               })}
 
-              {/* 추가 선택 안내 */}
+              {/* 추가 선택 안내 - 모바일에서 더 크게 */}
               {selectedPhotos.length < MAX_PHOTOS && (
-                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0 bg-gradient-to-br from-purple-100/50 to-sky-100/50 border border-dashed border-purple-300 rounded-md flex items-center justify-center">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex-shrink-0 bg-gradient-to-br from-purple-100/50 to-sky-100/50 border border-dashed border-purple-300 rounded-md flex items-center justify-center">
                   <span className="text-purple-400 text-[8px] sm:text-[10px] md:text-xs text-center px-1">
                     {MAX_PHOTOS - selectedPhotos.length}
                     {t("morePhotosNeeded")}

@@ -98,59 +98,59 @@ export function LoadingScreen({
     switch (screenState) {
       case "input":
         return (
-          <div className="flex flex-col sm:flex-row h-full gap-2 sm:gap-4 md:gap-6">
-            {/* 왼쪽 영역 - 안내 메시지 */}
-            <div className="flex flex-col items-center justify-center sm:w-1/3 p-2 sm:p-3 md:p-4">
+          <div className="flex flex-col sm:flex-row h-full gap-3 sm:gap-4 md:gap-6">
+            {/* 왼쪽 영역 - 안내 메시지 (모바일에서는 상단에 표시) */}
+            <div className="flex flex-col items-center justify-center sm:w-1/3 p-3 sm:p-4 md:p-5">
               {/* 토글 스위치 - 무료 횟수 소진 상태 시뮬레이션 */}
-              <div className="w-full flex items-center justify-end mb-2 sm:mb-3 bg-gray-100/50 p-1 rounded-md">
+              <div className="w-full flex items-center justify-end mb-2 sm:mb-3 bg-gray-100/50 p-1.5 rounded-md">
                 <div className="flex items-center space-x-2">
-                  <Label htmlFor="limit-toggle" className="text-[8px] sm:text-[10px] text-gray-500">
+                  <Label htmlFor="limit-toggle" className="text-[9px] sm:text-[10px] text-gray-500">
                     무료 횟수 소진 시뮬레이션
                   </Label>
                   <Switch id="limit-toggle" checked={isLimitReached} onCheckedChange={setIsLimitReached} />
                 </div>
               </div>
 
-              {/* 제목 */}
-              <h3 className="font-medium text-xs sm:text-sm md:text-lg mb-2 sm:mb-3 md:mb-4 bg-gradient-to-r from-purple-800 to-sky-700 bg-clip-text text-transparent">
+              {/* 제목 - 모바일에서 더 크게 */}
+              <h3 className="font-medium text-sm sm:text-base md:text-lg mb-3 sm:mb-4 md:mb-5 bg-gradient-to-r from-purple-800 to-sky-700 bg-clip-text text-transparent">
                 {t("shootingPrep")}
               </h3>
 
-              {/* 로딩 애니메이션 (배경 이미지 포함) */}
-              <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-md mb-2 sm:mb-3 md:mb-4 relative overflow-hidden shadow-md">
+              {/* 로딩 애니메이션 (배경 이미지 포함) - 모바일에서 더 크게 */}
+              <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-md mb-3 sm:mb-4 md:mb-5 relative overflow-hidden shadow-md">
                 <img src="/studio-puppy.png" alt="꽃 장식을 한 강아지" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-300/30 to-sky-300/30"></div>
               </div>
 
               {/* 알림 메시지 */}
               {showNotificationAlert && (
-                <Alert className="bg-gradient-to-r from-green-50 to-sky-50 border-green-200 mb-1.5 sm:mb-2 md:mb-3 w-full shadow-md p-2 sm:p-3">
-                  <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-500" />
-                  <AlertTitle className="text-[10px] sm:text-xs md:text-sm font-medium text-green-700">
+                <Alert className="bg-gradient-to-r from-green-50 to-sky-50 border-green-200 mb-2 sm:mb-3 md:mb-4 w-full shadow-md p-2 sm:p-3">
+                  <AlertCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-green-500" />
+                  <AlertTitle className="text-xs sm:text-sm md:text-base font-medium text-green-700">
                     채널 추가 완료
                   </AlertTitle>
-                  <AlertDescription className="text-[8px] sm:text-[10px] md:text-xs text-green-600">
+                  <AlertDescription className="text-[9px] sm:text-xs md:text-sm text-green-600">
                     이미지 생성이 완료되면 카카오톡으로 전송해 드릴게요!
                   </AlertDescription>
                 </Alert>
               )}
 
-              {/* 안내 메시지 */}
+              {/* 안내 메시지 - 모바일에서 더 크게 */}
               <div className="text-center mb-2 sm:mb-3 md:mb-4 w-full">
-                <p className="text-[10px] sm:text-xs md:text-sm text-purple-600 font-medium">
+                <p className="text-xs sm:text-sm md:text-base text-purple-600 font-medium">
                   고객님의 소중한 반려동물이 꽃단장 중입니다..
                 </p>
               </div>
 
-              {/* 무료 횟수 안내 */}
-              <div className="w-full bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-300 rounded-md p-1.5 sm:p-2">
-                <p className="text-[8px] sm:text-[10px] md:text-xs text-amber-700 text-center">
+              {/* 무료 횟수 안내 - 모바일에서 더 크게 */}
+              <div className="w-full bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-300 rounded-md p-2 sm:p-2.5">
+                <p className="text-[9px] sm:text-xs md:text-sm text-amber-700 text-center">
                   <span className="font-bold">무료 제작 횟수:</span> {isLimitReached ? "0" : "1"}/2회 남음
                 </p>
               </div>
             </div>
 
-            {/* 오른쪽 영역 - 반려동물 정보 입력 폼 */}
+            {/* 오른쪽 영역 - 반려동물 정보 입력 폼 (모바일에서는 하단에 표시) */}
             <div className="sm:w-2/3">
               <PetInfoInput onSubmit={handlePetInfoSubmit} selectedPhotos={selectedPhotos} />
             </div>

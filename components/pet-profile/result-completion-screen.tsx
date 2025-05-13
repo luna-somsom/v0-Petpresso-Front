@@ -20,7 +20,14 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
   useEffect(() => {
     // Check if running on the client-side and determine if it's a mobile device
     if (typeof window !== "undefined") {
-      setIsMobile(/Mobi|Android/i.test(navigator.userAgent))
+      setIsMobile(/Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 640)
+
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 640)
+      }
+
+      window.addEventListener("resize", handleResize)
+      return () => window.removeEventListener("resize", handleResize)
     }
   }, [])
 
@@ -77,14 +84,14 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
     <div className="bg-gradient-to-b from-purple-50 via-sky-50 to-white h-full flex flex-col">
       <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
         {loading ? (
-          // 로딩 화면
+          // 로딩 화면 - 모바일에서 더 크게
           <div className="flex flex-col items-center justify-center h-full">
-            <h3 className="font-medium text-sm sm:text-base md:text-lg mb-3 sm:mb-4 md:mb-5 bg-gradient-to-r from-purple-800 to-sky-700 bg-clip-text text-transparent">
+            <h3 className="font-medium text-base sm:text-lg md:text-xl mb-4 sm:mb-5 md:mb-6 bg-gradient-to-r from-purple-800 to-sky-700 bg-clip-text text-transparent">
               {t("creatingProfile")}
             </h3>
 
-            {/* 로딩 애니메이션 - 모바일에서 더 작게 */}
-            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 relative mb-4 sm:mb-5 md:mb-6">
+            {/* 로딩 애니메이션 - 모바일에서 더 크게 */}
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 relative mb-5 sm:mb-6 md:mb-7">
               {/* 배경 원 */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-200 to-sky-200 animate-pulse"></div>
 
@@ -93,38 +100,38 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
 
               {/* 중앙 아이콘 */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 md:h-16 md:w-16 text-white drop-shadow-lg animate-pulse" />
+                <Sparkles className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 text-white drop-shadow-lg animate-pulse" />
               </div>
             </div>
 
-            <div className="w-full max-w-xs mb-3 sm:mb-4 px-4 sm:px-0">
-              <div className="h-1.5 sm:h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+            <div className="w-full max-w-xs mb-4 sm:mb-5 px-4 sm:px-0">
+              <div className="h-2 sm:h-2.5 w-full bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-purple-500 to-sky-500 rounded-full transition-all duration-100 ease-out"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
-              <p className="text-right text-[10px] sm:text-xs text-purple-600 mt-0.5 sm:mt-1">{progress}%</p>
+              <p className="text-right text-xs sm:text-sm text-purple-600 mt-1 sm:mt-1.5">{progress}%</p>
             </div>
 
-            <p className="text-xs sm:text-sm text-center text-purple-700 max-w-xs px-4 sm:px-0">
+            <p className="text-sm sm:text-base text-center text-purple-700 max-w-xs px-4 sm:px-0">
               {t("aiProcessing")} <br />
               {t("pleaseWaitMoment")}
             </p>
           </div>
         ) : (
-          // 결과 화면
+          // 결과 화면 - 모바일에서 더 크게
           <div className="flex flex-col items-center">
             {/* 성공 메시지 */}
-            <div className="flex items-center mb-3 sm:mb-4 md:mb-6">
-              <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-green-500 mr-1.5 sm:mr-2" />
-              <h3 className="font-bold text-base sm:text-lg md:text-2xl bg-gradient-to-r from-purple-700 to-sky-600 bg-clip-text text-transparent">
+            <div className="flex items-center mb-4 sm:mb-5 md:mb-6">
+              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-green-500 mr-2 sm:mr-2.5" />
+              <h3 className="font-bold text-lg sm:text-xl md:text-2xl bg-gradient-to-r from-purple-700 to-sky-600 bg-clip-text text-transparent">
                 {t("profileComplete")}
               </h3>
             </div>
 
-            {/* 결과 이미지 - 모바일에서 더 작게 */}
-            <div className="relative mb-4 sm:mb-6 md:mb-8 w-full max-w-[300px] sm:max-w-md md:max-w-lg mx-auto">
+            {/* 결과 이미지 - 모바일에서 더 크게 */}
+            <div className="relative mb-5 sm:mb-6 md:mb-8 w-full max-w-[320px] sm:max-w-md md:max-w-lg mx-auto">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 to-sky-400 rounded-lg blur opacity-30"></div>
               <div className="relative rounded-lg overflow-hidden shadow-lg">
                 <img src="/result-profile.png" alt={`${petName}의 프로필 사진`} className="w-full h-auto" />
@@ -132,10 +139,10 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
             </div>
 
             {/* 펫 이름 */}
-            <h4 className="text-sm sm:text-base md:text-lg font-medium text-purple-800 mb-1.5 sm:mb-2">{petName}</h4>
+            <h4 className="text-base sm:text-lg md:text-xl font-medium text-purple-800 mb-2 sm:mb-3">{petName}</h4>
 
             {/* 설명 */}
-            <p className="text-xs sm:text-sm text-center text-sky-600 mb-4 sm:mb-6 max-w-xs px-4 sm:px-0">
+            <p className="text-sm sm:text-base text-center text-sky-600 mb-5 sm:mb-6 max-w-xs px-4 sm:px-0">
               {isMobile
                 ? "멋진 스튜디오 프로필 사진이 완성되었습니다.\n화면을 꾹 눌러 사진을 저장하세요."
                 : "멋진 스튜디오 프로필 사진이 완성되었습니다.\n다운로드 버튼을 눌러 저장하세요."}
@@ -143,9 +150,9 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
 
             {/* 액션 버튼 - 모바일에서는 표시하지 않음 */}
             {!isMobile && (
-              <div className="flex mb-4 sm:mb-6">
-                <Button className="flex items-center bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-3">
-                  <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <div className="flex mb-5 sm:mb-6">
+                <Button className="flex items-center bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-sm sm:text-base py-2 sm:py-2.5 px-4 sm:px-5">
+                  <Download className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-2.5" />
                   {t("download")}
                 </Button>
               </div>
@@ -154,11 +161,11 @@ export function ResultCompletionScreen({ onClose, petName = "룽지" }: ResultCo
         )}
       </div>
 
-      {/* 하단 버튼 */}
+      {/* 하단 버튼 - 모바일에서 더 크게 */}
       <div className="p-3 sm:p-4 border-t border-purple-200 bg-white">
         <Button
           onClick={onClose}
-          className="w-full bg-gradient-to-r from-purple-100 to-sky-100 text-purple-700 border border-purple-200 hover:from-purple-200 hover:to-sky-200"
+          className="w-full bg-gradient-to-r from-purple-100 to-sky-100 text-purple-700 border border-purple-200 hover:from-purple-200 hover:to-sky-200 text-sm sm:text-base py-2.5 sm:py-3"
         >
           {loading ? t("cancel") : t("close")}
         </Button>

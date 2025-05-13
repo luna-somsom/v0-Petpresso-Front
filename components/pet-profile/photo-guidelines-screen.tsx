@@ -59,57 +59,75 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
               {/* Row 1 - All with X marks */}
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/covered-dog.png" alt="가려진 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/covered-dog.png"
+                    alt="가려진 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
-                <div className="absolute inset-0 bg-red-200/30"></div>
+                <div className="absolute inset-0 bg-red-200/30 z-10"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     {t("obscuredPhoto")}
                   </span>
                 </div>
                 {/* X 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-red-500">X</span>
                 </div>
               </div>
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/sleeping-dog.png" alt="자고 있는 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/sleeping-dog.png"
+                    alt="자고 있는 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
-                <div className="absolute inset-0 bg-red-200/30"></div>
+                <div className="absolute inset-0 bg-red-200/30 z-10"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     자고 있는 사진
                   </span>
                 </div>
                 {/* X 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-red-500">X</span>
                 </div>
               </div>
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/with-person.png" alt="같이 찍은 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/with-person.png"
+                    alt="같이 찍은 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 붉은 배경 오버레이 추가 */}
-                <div className="absolute inset-0 bg-red-200/30"></div>
+                <div className="absolute inset-0 bg-red-200/30 z-10"></div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-red-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     같이 찍은 사진
                   </span>
                 </div>
                 {/* X 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-red-500">X</span>
                 </div>
               </div>
@@ -117,51 +135,69 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
               {/* Row 2 - O 표시 네모들에 이미지 적용 */}
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/solo-dog.png" alt="단독 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/solo-dog.png"
+                    alt="단독 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     {t("soloPhoto")}
                   </span>
                 </div>
                 {/* O 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-green-500">O</span>
                 </div>
               </div>
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/full-body-dog.png" alt="전신 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/full-body-dog.png"
+                    alt="전신 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-purple-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     {t("fullBodyPhoto")}
                   </span>
                 </div>
                 {/* O 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-green-500">O</span>
                 </div>
               </div>
 
               <div className="relative rounded-md overflow-hidden shadow-sm aspect-square">
                 {/* 배경 이미지 */}
-                <div className="absolute inset-0 relative">
-                  <Image src="/images/front-facing-dog.png" alt="정면 사진 예시" fill className="object-cover" />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src="/images/front-facing-dog.png"
+                    alt="정면 사진 예시"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
                 </div>
                 {/* 텍스트 배경 - 이미지가 잘 보이도록 상단에만 반투명 배경 적용 */}
-                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1">
+                <div className="absolute top-0 left-0 right-0 bg-sky-500/50 py-1 z-20">
                   <span className="text-center text-[10px] sm:text-[12px] md:text-sm text-white font-medium drop-shadow-md block">
                     정면 사진
                   </span>
                 </div>
                 {/* O 표시 - 우측 하단에 배치 */}
-                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center">
+                <div className="absolute bottom-1 right-1 bg-white/80 rounded-full w-5 h-5 flex items-center justify-center z-20">
                   <span className="text-base font-bold text-green-500">O</span>
                 </div>
               </div>

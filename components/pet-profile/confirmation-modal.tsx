@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, AlertCircle } from "lucide-react"
 import type { PetInfo } from "./pet-info-input"
+import { useEffect, useState } from "react"
 
 interface ConfirmationModalProps {
   open: boolean
@@ -14,6 +15,22 @@ interface ConfirmationModalProps {
 }
 
 export function ConfirmationModal({ open, onClose, onConfirm, petInfo, selectedPhotos = [] }: ConfirmationModalProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  // 모바일 감지
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 640)
+    }
+
+    checkIfMobile()
+    window.addEventListener("resize", checkIfMobile)
+
+    return () => {
+      window.removeEventListener("resize", checkIfMobile)
+    }
+  }, [])
+
   // 선택된 사진 중 첫 번째 사진을 대표 이미지로 사용
   const previewImage = selectedPhotos.length > 0 ? getPhotoSrc(selectedPhotos[0]) : "/pet-profiles/gomsooni.png"
 
@@ -41,14 +58,18 @@ export function ConfirmationModal({ open, onClose, onConfirm, petInfo, selectedP
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md p-0 overflow-hidden bg-gradient-to-b from-purple-50 via-sky-50 to-white border-purple-200">
+      <DialogContent
+        className={`sm:max-w-md p-0 overflow-hidden bg-gradient-to-b from-purple-50 via-sky-50 to-white border-purple-200 ${isMobile ? "w-[95vw] max-w-[95vw]" : ""}`}
+      >
         <div className="p-4 sm:p-6">
-          <DialogTitle className="text-center text-lg font-bold text-purple-800 mb-4">신청 정보 확인</DialogTitle>
+          <DialogTitle className="text-center text-base sm:text-lg font-bold text-purple-800 mb-3 sm:mb-4">
+            신청 정보 확인
+          </DialogTitle>
 
-          <div className="flex flex-col items-center mb-4">
-            <div className="relative mb-4">
+          <div className="flex flex-col items-center mb-3 sm:mb-4">
+            <div className="relative mb-3 sm:mb-4">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 to-sky-400 rounded-lg blur opacity-30"></div>
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden relative">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden relative">
                 <img
                   src={previewImage || "/placeholder.svg"}
                   alt="선택한 반려동물 사진"
@@ -57,7 +78,7 @@ export function ConfirmationModal({ open, onClose, onConfirm, petInfo, selectedP
               </div>
             </div>
 
-            <div className="w-full bg-white rounded-lg p-4 shadow-sm mb-4">
+            <div className="w-full bg-white rounded-lg p-3 sm:p-4 shadow-sm mb-3 sm:mb-4">
               <div className="grid grid-cols-2 gap-2 mb-3">
                 <div>
                   <p className="text-xs text-gray-500">이름</p>
@@ -85,19 +106,23 @@ export function ConfirmationModal({ open, onClose, onConfirm, petInfo, selectedP
               </div>
             </div>
 
-            <div className="flex items-center mb-4 p-2 bg-yellow-50 rounded-md border border-yellow-200 w-full">
+            <div className="flex items-center mb-3 sm:mb-4 p-2 bg-yellow-50 rounded-md border border-yellow-200 w-full">
               <AlertCircle className="h-4 w-4 text-yellow-500 mr-2 flex-shrink-0" />
               <p className="text-xs text-yellow-700">위 정보로 프로필 사진을 생성합니다. 정보가 맞는지 확인해주세요.</p>
             </div>
           </div>
 
           <div className="flex gap-3">
-            <Button variant="outline" onClick={onClose} className="flex-1 border-gray-300 text-gray-700">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              className="flex-1 border-gray-300 text-gray-700 text-xs sm:text-sm py-2 sm:py-2.5"
+            >
               수정하기
             </Button>
             <Button
               onClick={onConfirm}
-              className="flex-1 bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white"
+              className="flex-1 bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm py-2 sm:py-2.5"
             >
               <CheckCircle className="h-4 w-4 mr-2" />
               확인 완료

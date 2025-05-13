@@ -65,15 +65,15 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
 
   return (
     <>
-      <div className="bg-white rounded-lg shadow-md p-2 sm:p-3 md:p-4 flex flex-col w-full">
-        <h4 className="text-[10px] sm:text-xs md:text-sm font-medium text-purple-700 mb-1.5 sm:mb-2 md:mb-3 text-center">
+      <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-5 flex flex-col w-full">
+        <h4 className="text-xs sm:text-sm md:text-base font-medium text-purple-700 mb-2 sm:mb-3 md:mb-4 text-center">
           {t("petInfoInput")}
         </h4>
 
-        <form onSubmit={handleSubmit} className="space-y-1.5 sm:space-y-2 md:space-y-3 flex-1 overflow-y-auto">
-          {/* 반려동물 이름 입력 필드 */}
-          <div className="space-y-0.5 sm:space-y-1">
-            <Label htmlFor="petName" className="text-[10px] sm:text-xs text-purple-600">
+        <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3 md:space-y-4 flex-1 overflow-y-auto">
+          {/* 반려동물 이름 입력 필드 - 모바일에서 더 크게 */}
+          <div className="space-y-1 sm:space-y-1.5">
+            <Label htmlFor="petName" className="text-xs sm:text-sm text-purple-600">
               {t("petName")} <span className="text-red-500">*</span>
             </Label>
             <Input
@@ -82,15 +82,15 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
               value={petName}
               onChange={(e) => setPetName(e.target.value)}
               required
-              className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
+              className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
             />
           </div>
 
-          {/* 나이, 성별, 품종 입력 필드 (3열 그리드) */}
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3">
+          {/* 나이, 성별, 품종 입력 필드 (모바일에서는 1열, 태블릿 이상에서는 3열 그리드) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
             {/* 나이 입력 필드 */}
-            <div className="space-y-0.5 sm:space-y-1">
-              <Label htmlFor="petAge" className="text-[10px] sm:text-xs text-purple-600">
+            <div className="space-y-1 sm:space-y-1.5">
+              <Label htmlFor="petAge" className="text-xs sm:text-sm text-purple-600">
                 {t("age")} <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -99,13 +99,13 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
                 value={petAge}
                 onChange={(e) => setPetAge(e.target.value)}
                 required
-                className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
+                className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
               />
             </div>
 
             {/* 성별 입력 필드 */}
-            <div className="space-y-0.5 sm:space-y-1">
-              <Label htmlFor="petGender" className="text-[10px] sm:text-xs text-purple-600">
+            <div className="space-y-1 sm:space-y-1.5">
+              <Label htmlFor="petGender" className="text-xs sm:text-sm text-purple-600">
                 성별 <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -114,13 +114,13 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
                 value={petGender}
                 onChange={(e) => setPetGender(e.target.value)}
                 required
-                className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
+                className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
               />
             </div>
 
             {/* 품종 입력 필드 */}
-            <div className="space-y-0.5 sm:space-y-1">
-              <Label htmlFor="petSpecies" className="text-[10px] sm:text-xs text-purple-600">
+            <div className="space-y-1 sm:space-y-1.5">
+              <Label htmlFor="petSpecies" className="text-xs sm:text-sm text-purple-600">
                 {t("species")} <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -129,14 +129,14 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
                 value={petSpecies}
                 onChange={(e) => setPetSpecies(e.target.value)}
                 required
-                className="text-[10px] sm:text-xs h-6 sm:h-7 md:h-8"
+                className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
               />
             </div>
           </div>
 
-          {/* 특징 입력 필드 (텍스트 영역) */}
-          <div className="space-y-0.5 sm:space-y-1">
-            <Label htmlFor="petFeatures" className="text-[10px] sm:text-xs text-purple-600">
+          {/* 특징 입력 필드 (텍스트 영역) - 모바일에서 더 크게 */}
+          <div className="space-y-1 sm:space-y-1.5">
+            <Label htmlFor="petFeatures" className="text-xs sm:text-sm text-purple-600">
               {t("features")} <span className="text-red-500">*</span>
             </Label>
             <Textarea
@@ -145,15 +145,15 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
               value={petFeatures}
               onChange={(e) => setPetFeatures(e.target.value)}
               required
-              className="text-[10px] sm:text-xs min-h-[50px] sm:min-h-[60px] md:min-h-[80px] resize-none"
+              className="text-xs sm:text-sm min-h-[80px] sm:min-h-[100px] md:min-h-[120px] resize-none"
             />
           </div>
 
-          {/* 제출 버튼 */}
+          {/* 제출 버튼 - 모바일에서 더 크게 */}
           <Button
             type="submit"
             disabled={!isFormComplete}
-            className="w-full bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-[10px] sm:text-xs md:text-sm py-1 sm:py-1.5 md:py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm md:text-base py-2 sm:py-2.5 md:py-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {t("completeApplication")}
           </Button>

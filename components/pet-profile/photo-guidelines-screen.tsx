@@ -211,7 +211,7 @@ export function PhotoGuidelinesScreen({ onClose, onContinue }: PhotoGuidelinesSc
             onClick={onContinue}
             className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-bold py-1 sm:py-1.5 md:py-2 px-4 sm:px-6 md:px-8 rounded-full text-xs sm:text-sm md:text-base shadow-md"
           >
-            사진 업로드
+            사진 1장 선택
           </Button>
         </div>
       </div>

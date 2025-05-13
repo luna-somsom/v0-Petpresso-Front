@@ -54,6 +54,7 @@ export function StyleSelectionScreen({
 
   const handleComplete = () => {
     if (selectedStyle !== null) {
+      console.log("Selected style ID:", selectedStyle)
       onComplete(selectedStyle)
     }
   }

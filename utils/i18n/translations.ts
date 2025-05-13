@@ -266,8 +266,12 @@ export const translations: Translations = {
     ja: "1〜3枚の写真を選択",
   },
   selectPhotos: {
-    ko: "사진 1~3장을 선택해주세요",
-    ja: "写真を1〜3枚選択してください",
+    ko: "사진 1장을 선택해주세요",
+    ja: "写真を1枚選択してください",
+  },
+  selectOnePhoto: {
+    ko: "사진 1장 선택하기",
+    ja: "写真を1枚選択",
   },
   myGallery: {
     ko: "내 갤러리 화면",

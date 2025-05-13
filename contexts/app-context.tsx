@@ -61,7 +61,7 @@ const AppContext = createContext<AppContextType>(defaultContext)
 // 컨텍스트 제공자 컴포넌트
 export function AppProvider({ children }: { children: ReactNode }) {
   // 인증 상태
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true)
 
   // 사용자 정보
   const [user, setUser] = useState<User | null>(null)
@@ -78,22 +78,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // 초기화
   useEffect(() => {
     // 로컬 스토리지에서 로그인 상태 불러오기
-    const savedIsLoggedIn = getFromLocalStorage<boolean>("isLoggedIn", false)
+    const savedIsLoggedIn = getFromLocalStorage<boolean>("isLoggedIn", true)
     setIsLoggedIn(savedIsLoggedIn)
 
-    // 로그인 상태인 경우 사용자 정보 불러오기
-    if (savedIsLoggedIn) {
-      const savedUser = getFromLocalStorage<User | null>("user", null)
-      setUser(savedUser)
-
-      // 반려동물 목록 불러오기
-      const savedPets = getFromLocalStorage<Pet[]>("pets", [])
-      setPets(savedPets)
-
-      // 프로필 결과 불러오기
-      const savedProfileResults = getFromLocalStorage<ProfileResult[]>("profileResults", [])
-      setProfileResults(savedProfileResults)
+    // 기본 사용자 정보 설정
+    const dummyUser: User = {
+      id: "1",
+      name: "Luna Kim",
+      email: "luna@example.com",
+      profileImage: null,
+      joinDate: "2025년 4월",
     }
+    setUser(dummyUser)
+
+    // 반려동물 목록 불러오기
+    const savedPets = getFromLocalStorage<Pet[]>("pets", [])
+    setPets(savedPets)
+
+    // 프로필 결과 불러오기
+    const savedProfileResults = getFromLocalStorage<ProfileResult[]>("profileResults", [])
+    setProfileResults(savedProfileResults)
   }, [])
 
   // 로그인 처리

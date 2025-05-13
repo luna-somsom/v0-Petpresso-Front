@@ -45,6 +45,14 @@ export function LoadingScreen({
   // 반려동물 정보
   const [petInfo, setPetInfo] = useState<PetInfo | null>(null)
 
+  // 선택된 사진 가져오기 - 간소화된 버전
+  console.log("Selected Photos IDs:", selectedPhotos)
+
+  // Console logs for debugging
+  useEffect(() => {
+    console.log("LoadingScreen - selectedPhotos:", selectedPhotos)
+  }, [selectedPhotos])
+
   // 모바일 기기 감지
   useEffect(() => {
     const checkIfMobile = () => {
@@ -89,7 +97,7 @@ export function LoadingScreen({
 
   // 결과 화면에서 닫기 버튼 클릭 시 처리
   const handleResultClose = () => {
-    setScreenState("input")
+    // 상태 초기화 없이 바로 닫기
     onClose()
   }
 
@@ -116,9 +124,21 @@ export function LoadingScreen({
                 {t("shootingPrep")}
               </h3>
 
-              {/* 로딩 애니메이션 (배경 이미지 포함) - 모바일에서 더 크게 */}
+              {/* 선택된 사진 표시 또는 기본 로딩 애니메이션 */}
               <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-44 md:h-44 rounded-md mb-3 sm:mb-4 md:mb-5 relative overflow-hidden shadow-md">
-                <img src="/studio-puppy.png" alt="꽃 장식을 한 강아지" className="w-full h-full object-cover" />
+                {selectedPhotos && selectedPhotos.length > 0 ? (
+                  // 선택된 사진이 있으면 해당 사진 표시
+                  <img
+                    src={`/pet-profiles/gomsooni.png`}
+                    alt="선택된 반려동물 사진"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  // 선택된 사진이 없으면 로딩 애니메이션 표시
+                  <div className="w-full h-full bg-gradient-to-br from-purple-200 to-sky-200 animate-pulse flex items-center justify-center">
+                    <span className="text-white text-xs">이미지 준비중...</span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-300/30 to-sky-300/30"></div>
               </div>
 

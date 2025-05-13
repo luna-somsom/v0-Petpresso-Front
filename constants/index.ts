@@ -43,7 +43,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
 
 // 애플리케이션 설정
 export const APP_CONFIG = {
-  MAX_SELECTED_PHOTOS: 3,
+  MAX_SELECTED_PHOTOS: 1,
   MIN_SELECTED_PHOTOS: 1,
   ANIMATION_DURATION: {
     short: 300,

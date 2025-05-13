@@ -26,8 +26,9 @@ export function GalleryScreen({
   const [currentPage, setCurrentPage] = useState(0)
   const selectedPhotosRef = useRef<HTMLDivElement>(null)
 
-  // 최대 선택 가능한 사진 개수 (1~3개)
-  const MAX_PHOTOS = 3
+  // 최대 선택 가능한 사진 개수 (1장만)
+  const MAX_PHOTOS = 1
+  console.log("Initial Selected Photos:", initialSelectedPhotos)
 
   // Check if the device is mobile
   useEffect(() => {
@@ -41,6 +42,11 @@ export function GalleryScreen({
     return () => {
       window.removeEventListener("resize", checkIfMobile)
     }
+  }, [])
+
+  // Log initial selected photos when component mounts
+  useEffect(() => {
+    console.log("GalleryScreen - Component mounted with initialSelectedPhotos:", initialSelectedPhotos)
   }, [])
 
   // 실제 이미지를 포함한 갤러리 사진 배열 - 빈칸 없이 실제 이미지만 포함
@@ -79,6 +85,10 @@ export function GalleryScreen({
   const handleComplete = () => {
     // 최소 1개 이상, 최대 3개까지 선택 가능
     if (selectedPhotos.length >= 1 && selectedPhotos.length <= MAX_PHOTOS) {
+      console.log("GalleryScreen - Completing with selected photos:", selectedPhotos)
+      // Find the actual photo objects to verify they exist
+      const selectedPhotoObjects = selectedPhotos.map((id) => galleryPhotos.find((photo) => photo.id === id))
+      console.log("GalleryScreen - Selected photo objects:", selectedPhotoObjects)
       onComplete(selectedPhotos)
     }
   }
@@ -119,7 +129,7 @@ export function GalleryScreen({
           <div></div> // Empty div to maintain layout
         )}
         <div className="text-center text-xs sm:text-sm md:text-base font-medium text-purple-700">
-          {t("selectPhotos")}
+          {t("selectOnePhoto")}
         </div>
         <Button
           variant="ghost"

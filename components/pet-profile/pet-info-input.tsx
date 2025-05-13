@@ -9,7 +9,14 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useLanguage } from "@/utils/i18n/language-context"
 import { GALLERY_PHOTOS } from "@/constants"
-import Image from "next/image"
+
+// PetInfoInputProps 인터페이스에 onChangePhoto 콜백 추가
+interface PetInfoInputProps {
+  onSubmit: (petInfo: PetInfo) => void
+  initialValues?: Partial<PetInfo>
+  selectedPhotos?: number[]
+  onChangePhoto?: () => void // 사진 변경 콜백 추가
+}
 
 export interface PetInfo {
   petName: string
@@ -19,13 +26,8 @@ export interface PetInfo {
   petFeatures: string
 }
 
-interface PetInfoInputProps {
-  onSubmit: (petInfo: PetInfo) => void
-  initialValues?: Partial<PetInfo>
-  selectedPhotos?: number[]
-}
-
-export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = [] }: PetInfoInputProps) {
+// PetInfoInput 함수 매개변수에 onChangePhoto 추가
+export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = [], onChangePhoto }: PetInfoInputProps) {
   const { t } = useLanguage()
 
   // 폼 상태 - 초기값 또는 기본값으로 초기화
@@ -58,24 +60,37 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
     })
   }
 
+  // 사진 클릭 핸들러 추가
+  const handlePhotoClick = () => {
+    if (onChangePhoto) {
+      onChangePhoto()
+    }
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-5 flex flex-col w-full">
       <h4 className="text-xs sm:text-sm md:text-base font-medium text-purple-700 mb-2 sm:mb-3 md:mb-4 text-center">
         {t("petInfoInput")}
       </h4>
 
-      {/* 선택된 사진 표시 */}
+      {/* 선택된 사진 표시 - 클릭 가능하도록 수정 */}
       {selectedPhoto && (
         <div className="mb-3 sm:mb-4 md:mb-5 flex justify-center">
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-lg overflow-hidden shadow-md border-2 border-purple-300">
-            <Image
+          <div
+            className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-lg overflow-hidden shadow-md border-2 border-purple-300 cursor-pointer transition-all duration-300 hover:border-purple-500 hover:shadow-lg group"
+            onClick={handlePhotoClick}
+          >
+            <img
               src={selectedPhoto.src || "/placeholder.svg"}
               alt="선택된 반려동물 사진"
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 160px"
+              className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent"></div>
+
+            {/* 사진 변경 안내 오버레이 */}
+            <div className="absolute inset-0 bg-purple-800/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <p className="text-white text-xs sm:text-sm font-medium">사진 변경하기</p>
+            </div>
           </div>
         </div>
       )}

@@ -135,7 +135,14 @@ function PetStudioPageContent() {
           />
         )
       case "loading":
-        return <LoadingScreen onClose={handleDialogClose} />
+        return (
+          <LoadingScreen
+            onClose={handleDialogClose}
+            onBack={handleBackToGallery}
+            onChangePhoto={handleBackToGallery} // 갤러리 화면으로 돌아가는 함수 추가
+            selectedPhotos={selectedPhotos}
+          />
+        )
       default:
         return null
     }

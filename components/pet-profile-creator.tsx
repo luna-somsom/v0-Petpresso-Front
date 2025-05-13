@@ -125,7 +125,16 @@ export function PetProfileCreator({
       case "uploading":
         return <UploadingScreen onClose={handleClose} onComplete={handleUploadingComplete} />
       case "loading":
-        return <LoadingScreen onClose={handleClose} onGoToMyPage={onGoToMyPage} usageLimitReached={usageLimitReached} />
+        return (
+          <LoadingScreen
+            onClose={handleClose}
+            onGoToMyPage={onGoToMyPage}
+            usageLimitReached={usageLimitReached}
+            onBack={handleBack}
+            onChangePhoto={() => setStep("gallery")} // 갤러리 화면으로 돌아가는 함수 추가
+            selectedPhotos={selectedPhotos}
+          />
+        )
       default:
         return null
     }

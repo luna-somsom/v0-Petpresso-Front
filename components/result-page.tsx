@@ -433,9 +433,9 @@ export function ResultPage({ petName = "룽지" }: ResultPageProps) {
             </div>
 
             {/* 가로로 배치된 이미지들 */}
-            <div className="flex flex-row gap-4 sm:gap-6 md:gap-8 justify-center mt-4 sm:mt-6 w-full max-w-[600px] sm:max-w-[700px] md:max-w-[800px]">
+            <div className="flex flex-row gap-6 sm:gap-8 md:gap-10 justify-center mt-4 sm:mt-6 w-full max-w-[800px] sm:max-w-[900px] md:max-w-[1000px]">
               {/* 첫 번째 이미지 - 하늘색 배경 포토카드 */}
-              <div className="relative rounded-lg overflow-hidden shadow-xl group transform transition-all duration-300 hover:scale-105 hover:z-10 w-[150px] sm:w-[180px] md:w-[220px]">
+              <div className="relative rounded-lg overflow-hidden shadow-xl group transform transition-all duration-300 hover:scale-105 hover:z-10 w-[200px] sm:w-[250px] md:w-[320px]">
                 {/* 강화된 빛나는 테두리 효과 */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 rounded-lg blur opacity-75 group-hover:opacity-100 animate-pulse transition-opacity duration-300"></div>
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-300 to-amber-200 rounded-lg opacity-50 group-hover:opacity-80"></div>
@@ -457,7 +457,7 @@ export function ResultPage({ petName = "룽지" }: ResultPageProps) {
               </div>
 
               {/* 두 번째 이미지 - 분홍색 배경 포토카드 */}
-              <div className="relative rounded-lg overflow-hidden shadow-xl group transform transition-all duration-300 hover:scale-105 hover:z-10 w-[150px] sm:w-[180px] md:w-[220px]">
+              <div className="relative rounded-lg overflow-hidden shadow-xl group transform transition-all duration-300 hover:scale-105 hover:z-10 w-[200px] sm:w-[250px] md:w-[320px]">
                 {/* 강화된 빛나는 테두리 효과 */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-400 rounded-lg blur opacity-75 group-hover:opacity-100 animate-pulse transition-opacity duration-300"></div>
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-300 to-amber-200 rounded-lg opacity-50 group-hover:opacity-80"></div>

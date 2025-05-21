@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/footer"
 import { Sparkles, Menu, X, Star, Heart, PawPrint, LogOut } from "lucide-react"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { GalleryScreen } from "@/components/pet-profile/gallery-screen"
 import { PhotoGuidelinesScreen } from "@/components/pet-profile/photo-guidelines-screen"
 import { StyleSelectionScreen } from "@/components/pet-profile/style-selection-screen"
@@ -25,7 +25,7 @@ import Image from "next/image"
 function PetStudioPageContent() {
   const { t } = useLanguage()
   const { isLoggedIn, login, logout, openModal, closeModal, user } = useApp()
-  const { isMobile } = useResponsive()
+  const { isMobile, isTablet } = useResponsive()
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeStyle, setActiveStyle] = useState<number | null>(null)
@@ -376,35 +376,39 @@ function PetStudioPageContent() {
             {/* Create Profile Button */}
             <div className="flex justify-center mb-20 md:mb-28">
               <div className="w-full max-w-sm md:max-w-lg mx-auto text-center">
+                <Button
+                  className="relative overflow-hidden bg-gradient-to-r from-purple-500 via-pink-400 to-indigo-500 hover:from-purple-400 hover:via-pink-300 hover:to-indigo-400 text-white font-bold py-5 md:py-7 px-12 md:px-16 rounded-full text-xl md:text-2xl max-w-xl mx-auto shadow-2xl transform transition-all duration-300 hover:shadow-xl hover:translate-y-[4px] border-2 border-white/30 animate-glow"
+                  onClick={() => setProfileDialogOpen(true)}
+                >
+                  {/* 강화된 글로우 효과 */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-300/40 via-pink-300/40 to-indigo-300/40 opacity-50 blur-lg"></div>
+
+                  {/* 반짝이는 효과 */}
+                  <div className="absolute -top-2 -right-2 animate-pulse">
+                    <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-yellow-200" />
+                  </div>
+                  <div className="absolute -bottom-2 -left-2 animate-pulse delay-300">
+                    <Sparkles className="h-5 w-5 md:h-7 md:w-7 text-purple-200" />
+                  </div>
+
+                  {/* 버튼 내용 */}
+                  <div className="relative z-10 flex items-center justify-center">
+                    <span className="tracking-wide drop-shadow-md">펫 프로필 사진 만들기</span>
+                  </div>
+
+                  {/* 강화된 하이라이트 효과 */}
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
+                  <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                </Button>
+
                 <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button className="relative overflow-hidden bg-gradient-to-r from-purple-500 via-pink-400 to-indigo-500 hover:from-purple-400 hover:via-pink-300 hover:to-indigo-400 text-white font-bold py-5 md:py-7 px-12 md:px-16 rounded-full text-xl md:text-2xl max-w-xl mx-auto shadow-2xl transform transition-all duration-300 hover:shadow-xl hover:translate-y-[4px] border-2 border-white/30 animate-glow">
-                      {/* 강화된 글로우 효과 */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-300/40 via-pink-300/40 to-indigo-300/40 opacity-50 blur-lg"></div>
-
-                      {/* 반짝이는 효과 */}
-                      <div className="absolute -top-2 -right-2 animate-pulse">
-                        <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-yellow-200" />
-                      </div>
-                      <div className="absolute -bottom-2 -left-2 animate-pulse delay-300">
-                        <Sparkles className="h-5 w-5 md:h-7 md:w-7 text-purple-200" />
-                      </div>
-
-                      {/* 버튼 내용 */}
-                      <div className="relative z-10 flex items-center justify-center">
-                        <span className="tracking-wide drop-shadow-md">펫 프로필 사진 만들기</span>
-                      </div>
-
-                      {/* 강화된 하이라이트 효과 */}
-                      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/70 to-transparent"></div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                    </Button>
-                  </DialogTrigger>
                   <DialogContent
                     className={`
-          p-0 overflow-hidden border-gradient-to-r from-purple-200 to-sky-200 shadow-lg
-          ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-2xl"}
-        `}
+      p-0 overflow-hidden border border-purple-200 shadow-lg transition-all duration-300
+      ${isMobile ? "w-[90vw] max-w-[90vw]" : "sm:max-w-md md:max-w-lg lg:max-w-xl"}
+      bg-gradient-to-b from-purple-50 via-sky-50 to-white
+      rounded-lg sm:rounded-xl md:rounded-2xl
+    `}
                   >
                     {renderProfileContent()}
                   </DialogContent>

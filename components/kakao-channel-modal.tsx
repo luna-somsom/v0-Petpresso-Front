@@ -13,18 +13,21 @@ interface KakaoChannelModalProps {
 
 export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChannelModalProps) {
   const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
 
-  // Check if the device is mobile
+  // Check device type
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 640)
+    const checkDeviceType = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 640)
+      setIsTablet(width >= 640 && width < 1024)
     }
 
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
+    checkDeviceType()
+    window.addEventListener("resize", checkDeviceType)
 
     return () => {
-      window.removeEventListener("resize", checkIfMobile)
+      window.removeEventListener("resize", checkDeviceType)
     }
   }, [])
 
@@ -41,22 +44,22 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={`
-          bg-gradient-to-b from-yellow-50 via-white to-white border-yellow-200 p-0
-          ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-2xl"}
+          bg-gradient-to-b from-yellow-50 via-white to-white border-yellow-200 p-0 max-h-[90vh] overflow-y-auto
+          ${isMobile ? "w-[95vw] max-w-[95vw]" : isTablet ? "sm:max-w-md" : "sm:max-w-2xl"}
         `}
       >
         <div className="flex flex-col">
-          {/* Header */}
-          <div className="flex justify-between items-center p-3 sm:p-4 border-b border-yellow-200">
+          {/* Header - 반응형 패딩 및 폰트 크기 */}
+          <div className="flex justify-between items-center p-3 sm:p-4 md:p-5 border-b border-yellow-200">
             <div className="flex items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#FEE500] rounded-full flex items-center justify-center mr-2 sm:mr-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-[#FEE500] rounded-full flex items-center justify-center mr-2 sm:mr-3 md:mr-4">
                 <svg
                   width="20"
                   height="20"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="sm:w-24 sm:h-24"
+                  className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
                 >
                   <path
                     fillRule="evenodd"
@@ -66,35 +69,37 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
                   />
                 </svg>
               </div>
-              <h3 className="font-bold text-sm sm:text-base text-gray-800">카카오톡 채널 추가</h3>
+              <h3 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl text-gray-800">카카오톡 채널 추가</h3>
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => onOpenChange(false)}
-              className="h-8 w-8 text-gray-500 hover:bg-yellow-100"
+              className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-gray-500 hover:bg-yellow-100"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
             </Button>
           </div>
 
-          {/* Content */}
-          <div className="p-4 sm:p-6">
-            <div className="flex flex-col items-center mb-4 sm:mb-6">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[#FEE500] rounded-full flex items-center justify-center mb-3 sm:mb-4 border-2 border-yellow-300">
-                <span className="text-xl sm:text-2xl font-bold">P</span>
+          {/* Content - 반응형 패딩 및 폰트 크기 */}
+          <div className="p-3 sm:p-4 md:p-5 lg:p-6">
+            <div className="flex flex-col items-center mb-4 sm:mb-5 md:mb-6 lg:mb-8">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 bg-[#FEE500] rounded-full flex items-center justify-center mb-3 sm:mb-4 md:mb-5 border-2 border-yellow-300">
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">P</span>
               </div>
-              <h4 className="font-bold text-base sm:text-lg text-gray-800 mb-1 sm:mb-2">Petpresso</h4>
-              <p className="text-xs sm:text-sm text-gray-600 text-center">
+              <h4 className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800 mb-1 sm:mb-2 md:mb-3">
+                Petpresso
+              </h4>
+              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 text-center">
                 카카오톡 채널 추가하고 생성된 이미지를 바로 받아보세요!
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-md p-3 sm:p-4 mb-4 sm:mb-6 border border-gray-200">
+            <div className="bg-gray-50 rounded-md p-3 sm:p-4 md:p-5 mb-4 sm:mb-5 md:mb-6 lg:mb-8 border border-gray-200">
               <div className="flex items-start">
                 <div className="flex-shrink-0 mt-1">
                   <svg
-                    className="h-4 w-4 text-yellow-500"
+                    className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-yellow-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -106,9 +111,11 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
                     ></path>
                   </svg>
                 </div>
-                <div className="ml-2">
-                  <p className="text-xs sm:text-sm text-gray-600">채널 추가 시 다음과 같은 혜택이 있습니다:</p>
-                  <ul className="list-disc pl-4 mt-1 text-xs sm:text-sm text-gray-600 space-y-1">
+                <div className="ml-2 sm:ml-3">
+                  <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                    채널 추가 시 다음과 같은 혜택이 있습니다:
+                  </p>
+                  <ul className="list-disc pl-4 sm:pl-5 md:pl-6 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base text-gray-600 space-y-1 sm:space-y-2">
                     <li>생성된 이미지를 카카오톡으로 바로 받기</li>
                     <li>신규 스타일 업데이트 소식 받기</li>
                     <li>특별 할인 이벤트 참여 기회</li>
@@ -119,7 +126,7 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
 
             <Button
               onClick={handleAddChannel}
-              className="w-full bg-[#FEE500] hover:bg-[#FEE500]/90 text-black font-bold py-3 sm:py-4 rounded-md flex items-center justify-center gap-2 shadow-md"
+              className="w-full bg-[#FEE500] hover:bg-[#FEE500]/90 text-black font-bold py-3 sm:py-3.5 md:py-4 lg:py-5 rounded-md flex items-center justify-center gap-2 sm:gap-3 shadow-md text-sm sm:text-base md:text-lg lg:text-xl transition-all duration-200"
             >
               <svg
                 width="20"
@@ -127,7 +134,7 @@ export function KakaoChannelModal({ open, onOpenChange, onComplete }: KakaoChann
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="sm:w-24 sm:h-24"
+                className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
               >
                 <path
                   fillRule="evenodd"

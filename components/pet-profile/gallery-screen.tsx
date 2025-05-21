@@ -23,6 +23,7 @@ export function GalleryScreen({
   const { t } = useLanguage()
   const [selectedPhotos, setSelectedPhotos] = useState<number[]>(initialSelectedPhotos)
   const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const selectedPhotosRef = useRef<HTMLDivElement>(null)
 
@@ -30,17 +31,19 @@ export function GalleryScreen({
   const MAX_PHOTOS = 1
   console.log("Initial Selected Photos:", initialSelectedPhotos)
 
-  // Check if the device is mobile
+  // Check device type
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 640)
+    const checkDeviceType = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 640)
+      setIsTablet(width >= 640 && width < 1024)
     }
 
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
+    checkDeviceType()
+    window.addEventListener("resize", checkDeviceType)
 
     return () => {
-      window.removeEventListener("resize", checkIfMobile)
+      window.removeEventListener("resize", checkDeviceType)
     }
   }, [])
 
@@ -65,8 +68,14 @@ export function GalleryScreen({
     { id: 12, src: "/flower-profile-dog.png" },
   ]
 
-  // 페이지당 사진 개수와 총 페이지 수 계산 - 모바일에서는 더 적은 수의 사진 표시
-  const photosPerPage = isMobile ? 8 : 12
+  // 페이지당 사진 개수와 총 페이지 수 계산 - 반응형으로 조정
+  const getPhotosPerPage = () => {
+    if (isMobile) return 6
+    if (isTablet) return 8
+    return 12
+  }
+
+  const photosPerPage = getPhotosPerPage()
   const totalPages = Math.ceil(galleryPhotos.length / photosPerPage)
 
   // 현재 페이지의 사진들만 필터링
@@ -113,48 +122,48 @@ export function GalleryScreen({
   }, [selectedPhotos.length])
 
   return (
-    <div className="flex flex-col h-full max-h-[80vh] sm:max-h-[85vh] bg-gradient-to-b from-purple-50 via-sky-50 to-white">
-      {/* Header - 모바일에서 더 작게 */}
-      <div className="flex justify-between items-center p-1.5 sm:p-2 md:p-3 border-b border-purple-200">
+    <div className="flex flex-col h-full max-h-[90vh] sm:max-h-[85vh] md:max-h-[80vh] bg-gradient-to-b from-purple-50 via-sky-50 to-white">
+      {/* Header - 반응형 패딩 및 폰트 크기 */}
+      <div className="flex justify-between items-center p-2 sm:p-2.5 md:p-3 border-b border-purple-200">
         {!skipBackButton ? (
           <Button
             variant="outline"
             size="icon"
             onClick={onBack}
-            className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-md border-purple-300 text-purple-700"
+            className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 rounded-md border-purple-300 text-purple-700"
           >
-            <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
+            <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
           </Button>
         ) : (
-          <div></div> // Empty div to maintain layout
+          <div></div> // 빈 공간으로 중앙 정렬 유지
         )}
-        <div className="text-center text-xs sm:text-sm md:text-base font-medium text-purple-700">
+        <div className="text-center text-xs sm:text-sm md:text-base lg:text-lg font-medium text-purple-700">
           {t("selectOnePhoto")}
         </div>
         <Button
           variant="ghost"
           size="icon"
           onClick={onClose}
-          className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 rounded-md text-sky-700 hover:bg-sky-50"
+          className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 rounded-md text-sky-700 hover:bg-sky-50"
         >
-          <X className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
+          <X className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
         </Button>
       </div>
 
-      {/* Gallery Title - 모바일에서 더 작게 */}
-      <div className="text-center text-[10px] sm:text-xs md:text-sm text-purple-500 py-0.5 sm:py-1 md:py-2 border-b border-purple-100">
+      {/* Gallery Title - 반응형 패딩 및 폰트 크기 */}
+      <div className="text-center text-[10px] sm:text-xs md:text-sm lg:text-base text-purple-500 py-1 sm:py-1.5 md:py-2 lg:py-2.5 border-b border-purple-100">
         {t("myGallery")}
       </div>
 
-      {/* Gallery Content - 모바일 최적화 */}
+      {/* Gallery Content - 반응형 레이아웃 */}
       <div className="flex-1 overflow-y-auto relative">
-        {/* Gallery Grid - 모바일에서 3열, 태블릿에서 4열, 데스크탑에서 6열 */}
-        <div className="p-1.5 sm:p-2 md:p-3 pb-8 sm:pb-10">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-1 sm:gap-1.5 md:gap-2">
+        {/* Gallery Grid - 반응형 그리드 및 간격 */}
+        <div className="p-2 sm:p-2.5 md:p-3 pb-6 sm:pb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2 md:gap-3">
             {currentPagePhotos.map((photo) => (
               <div
                 key={photo.id}
-                className={`aspect-square rounded-md relative cursor-pointer shadow-sm ${
+                className={`aspect-square rounded-md relative cursor-pointer shadow-sm transition-all duration-200 hover:shadow-md ${
                   selectedPhotos.includes(photo.id) ? "ring-2 ring-purple-500" : ""
                 }`}
                 onClick={() => handlePhotoSelect(photo.id)}
@@ -168,8 +177,8 @@ export function GalleryScreen({
                   />
                 </div>
                 {selectedPhotos.includes(photo.id) && (
-                  <div className="absolute top-0.5 sm:top-1 right-0.5 sm:right-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 flex items-center justify-center">
-                    <Check className="h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3 md:w-3 text-white" />
+                  <div className="absolute top-1 sm:top-1.5 md:top-2 right-1 sm:right-1.5 md:right-2 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center">
+                    <Check className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
                   </div>
                 )}
               </div>
@@ -177,39 +186,41 @@ export function GalleryScreen({
           </div>
         </div>
 
-        {/* Navigation Buttons - 페이지가 2개 이상일 때만 표시, 모바일에서 더 크게 */}
+        {/* Navigation Buttons - 페이지가 2개 이상일 때만 표시, 반응형 크기 */}
         {totalPages > 1 && (
           <>
-            <div className="absolute left-1 top-1/2 transform -translate-y-1/2 z-10">
+            <div className="absolute left-2 sm:left-3 md:left-4 top-1/2 transform -translate-y-1/2 z-10">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={goToPrevPage}
                 disabled={currentPage === 0}
-                className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
+                className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
               >
-                <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
+                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
             </div>
-            <div className="absolute right-1 top-1/2 transform -translate-y-1/2 z-10">
+            <div className="absolute right-2 sm:right-3 md:right-4 top-1/2 transform -translate-y-1/2 z-10">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={goToNextPage}
                 disabled={currentPage === totalPages - 1}
-                className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
+                className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 rounded-full bg-white/70 shadow-sm text-purple-700 hover:bg-white hover:text-purple-800 disabled:opacity-30"
               >
-                <ChevronRight className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4" />
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:h-5" />
               </Button>
             </div>
 
-            {/* Page Indicator - 모바일에서 더 크게 */}
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 py-1.5 bg-gradient-to-t from-white/80 to-transparent">
+            {/* Page Indicator - 반응형 크기 */}
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1 sm:gap-1.5 md:gap-2 py-2 sm:py-2.5 md:py-3 bg-gradient-to-t from-white/80 to-transparent">
               {Array.from({ length: totalPages }).map((_, index) => (
                 <div
                   key={index}
-                  className={`h-1.5 sm:h-2 rounded-full ${
-                    currentPage === index ? "w-4 sm:w-5 bg-purple-500" : "w-1.5 sm:w-2 bg-purple-300"
+                  className={`h-1.5 sm:h-2 md:h-2.5 rounded-full cursor-pointer transition-all duration-200 ${
+                    currentPage === index
+                      ? "w-5 sm:w-6 md:w-7 bg-purple-500"
+                      : "w-1.5 sm:w-2 md:w-2.5 bg-purple-300 hover:bg-purple-400"
                   }`}
                   onClick={() => setCurrentPage(index)}
                 ></div>
@@ -219,35 +230,35 @@ export function GalleryScreen({
         )}
       </div>
 
-      {/* Selected Photos Section - 모바일에서 더 크게 */}
+      {/* Selected Photos Section - 반응형 패딩 및 폰트 크기 */}
       <div className="border-t border-purple-200 p-2 sm:p-2.5 md:p-3 bg-white">
         {/* Header */}
-        <div className="flex justify-between items-center mb-1.5 sm:mb-2">
-          <div className="text-[10px] sm:text-xs md:text-sm font-medium text-purple-700">{t("selectedPhotos")}</div>
-          <div className="flex items-center gap-1 sm:gap-2">
-            <span className="text-[10px] sm:text-xs md:text-sm text-sky-600">
+        <div className="flex justify-between items-center mb-2 sm:mb-3 md:mb-4">
+          <div className="text-xs sm:text-sm md:text-base font-medium text-purple-700">{t("selectedPhotos")}</div>
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            <span className="text-xs sm:text-sm md:text-base text-sky-600">
               {selectedPhotos.length}/{MAX_PHOTOS}
             </span>
             <Button
               onClick={handleComplete}
               disabled={selectedPhotos.length < 1}
-              className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-medium py-1 sm:py-1.5 md:py-2 px-3 sm:px-4 md:px-5 rounded-md text-[10px] sm:text-xs md:text-sm shadow-sm disabled:opacity-50"
+              className="bg-gradient-to-r from-purple-400 to-sky-400 hover:from-purple-500 hover:to-sky-500 text-white font-medium py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 lg:px-6 rounded-md text-xs sm:text-sm md:text-base shadow-sm disabled:opacity-50"
             >
               {t("complete")}
             </Button>
           </div>
         </div>
 
-        {/* Selected Photos - 모바일에서 더 크게 */}
+        {/* Selected Photos - 반응형 크기 */}
         <div className="bg-gradient-to-br from-purple-50 to-sky-50 rounded-md shadow-inner">
           {selectedPhotos.length === 0 ? (
-            <div className="h-14 sm:h-16 md:h-18 flex items-center justify-center">
-              <span className="text-purple-400 text-[10px] sm:text-xs md:text-sm">{t("noSelectedPhotos")}</span>
+            <div className="h-16 sm:h-20 md:h-24 flex items-center justify-center">
+              <span className="text-purple-400 text-xs sm:text-sm md:text-base">{t("noSelectedPhotos")}</span>
             </div>
           ) : (
             <div
               ref={selectedPhotosRef}
-              className="flex gap-1.5 sm:gap-2 p-1.5 sm:p-2 overflow-x-auto scrollbar-hide"
+              className="flex gap-2 sm:gap-3 md:gap-4 p-2 sm:p-3 md:p-4 overflow-x-auto scrollbar-hide"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {selectedPhotos.map((photoId) => {
@@ -255,7 +266,7 @@ export function GalleryScreen({
                 return (
                   <div
                     key={`selected-${photoId}`}
-                    className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex-shrink-0 bg-gradient-to-br from-purple-200 to-sky-200 rounded-md relative shadow-sm"
+                    className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex-shrink-0 bg-gradient-to-br from-purple-200 to-sky-200 rounded-md relative shadow-sm transition-all duration-200 hover:shadow-md"
                     onClick={() => handlePhotoSelect(photoId)}
                   >
                     <div className="w-full h-full flex items-center justify-center">
@@ -267,18 +278,18 @@ export function GalleryScreen({
                         />
                       )}
                     </div>
-                    {/* X 버튼 - 모바일에서 더 크게 */}
-                    <div className="absolute top-0.5 sm:top-1 right-0.5 sm:right-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center">
-                      <X className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-white" />
+                    {/* X 버튼 - 반응형 크기 */}
+                    <div className="absolute top-1 sm:top-1.5 md:top-2 right-1 sm:right-1.5 md:right-2 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center">
+                      <X className="h-2 w-2 sm:h-3 sm:w-3 md:h-4 md:w-4 text-white" />
                     </div>
                   </div>
                 )
               })}
 
-              {/* 추가 선택 안내 - 모바일에서 더 크게 */}
+              {/* 추가 선택 안내 - 반응형 크기 */}
               {selectedPhotos.length < MAX_PHOTOS && (
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex-shrink-0 bg-gradient-to-br from-purple-100/50 to-sky-100/50 border border-dashed border-purple-300 rounded-md flex items-center justify-center">
-                  <span className="text-purple-400 text-[8px] sm:text-[10px] md:text-xs text-center px-1">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:w-20 lg:w-24 lg:h-24 flex-shrink-0 bg-gradient-to-br from-purple-100/50 to-sky-100/50 border border-dashed border-purple-300 rounded-md flex items-center justify-center">
+                  <span className="text-purple-400 text-[8px] sm:text-xs md:text-sm text-center px-1 sm:px-2">
                     {MAX_PHOTOS - selectedPhotos.length}
                     {t("morePhotosNeeded")}
                   </span>

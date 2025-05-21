@@ -145,9 +145,12 @@ export function PetProfileCreator({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent
         className={`
-        p-0 overflow-hidden max-h-[90vh] border-gradient-to-r from-purple-200 to-sky-200 shadow-lg
-        ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-2xl"}
-      `}
+    p-0 max-h-[80vh] overflow-y-auto border border-purple-200 shadow-lg transition-all duration-300
+    ${isMobile ? "w-[95vw] max-w-[95vw]" : "sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw]"}
+    bg-gradient-to-b from-purple-50 via-sky-50 to-white
+    rounded-lg sm:rounded-xl md:rounded-2xl
+  `}
+        closeButton={false}
       >
         {renderContent()}
       </DialogContent>

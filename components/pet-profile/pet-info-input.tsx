@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,12 +10,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { useLanguage } from "@/utils/i18n/language-context"
 import { GALLERY_PHOTOS } from "@/constants"
 
-// PetInfoInputProps 인터페이스에 onChangePhoto 콜백 추가
 interface PetInfoInputProps {
   onSubmit: (petInfo: PetInfo) => void
   initialValues?: Partial<PetInfo>
   selectedPhotos?: number[]
-  onChangePhoto?: () => void // 사진 변경 콜백 추가
+  onChangePhoto?: () => void
 }
 
 export interface PetInfo {
@@ -26,9 +25,26 @@ export interface PetInfo {
   petFeatures: string
 }
 
-// PetInfoInput 함수 매개변수에 onChangePhoto 추가
 export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = [], onChangePhoto }: PetInfoInputProps) {
   const { t } = useLanguage()
+  const [isMobile, setIsMobile] = useState(false)
+  const [isTablet, setIsTablet] = useState(false)
+
+  // 디바이스 타입 체크
+  useEffect(() => {
+    const checkDeviceType = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 640)
+      setIsTablet(width >= 640 && width < 1024)
+    }
+
+    checkDeviceType()
+    window.addEventListener("resize", checkDeviceType)
+
+    return () => {
+      window.removeEventListener("resize", checkDeviceType)
+    }
+  }, [])
 
   // 폼 상태 - 초기값 또는 기본값으로 초기화
   const [petName, setPetName] = useState(initialValues.petName || "룽지")
@@ -68,16 +84,16 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 md:p-5 flex flex-col w-full">
-      <h4 className="text-xs sm:text-sm md:text-base font-medium text-purple-700 mb-2 sm:mb-3 md:mb-4 text-center">
+    <div className="bg-white rounded-lg shadow-md p-2.5 sm:p-3 md:p-4 flex flex-col w-full max-h-[calc(100vh-8rem)] overflow-hidden">
+      <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-medium text-purple-700 mb-3 sm:mb-4 md:mb-5 text-center">
         {t("petInfoInput")}
       </h4>
 
-      {/* 선택된 사진 표시 - 클릭 가능하도록 수정 */}
+      {/* 선택된 사진 표시 - 반응형 크기 */}
       {selectedPhoto && (
-        <div className="mb-3 sm:mb-4 md:mb-5 flex justify-center">
+        <div className="mb-2.5 sm:mb-3 md:mb-4 flex justify-center">
           <div
-            className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-lg overflow-hidden shadow-md border-2 border-purple-300 cursor-pointer transition-all duration-300 hover:border-purple-500 hover:shadow-lg group"
+            className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-lg overflow-hidden shadow-md border-2 border-purple-300 cursor-pointer transition-all duration-300 hover:border-purple-500 hover:shadow-lg group"
             onClick={handlePhotoClick}
           >
             <img
@@ -89,16 +105,16 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
 
             {/* 사진 변경 안내 오버레이 */}
             <div className="absolute inset-0 bg-purple-800/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <p className="text-white text-xs sm:text-sm font-medium">사진 변경하기</p>
+              <p className="text-white text-xs sm:text-sm md:text-base font-medium">사진 변경하기</p>
             </div>
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-2 sm:space-y-3 md:space-y-4 flex-1 overflow-y-auto">
-        {/* 반려동물 이름 입력 필드 - 모바일에서 더 크게 */}
-        <div className="space-y-1 sm:space-y-1.5">
-          <Label htmlFor="petName" className="text-xs sm:text-sm text-purple-600">
+      <form onSubmit={handleSubmit} className="space-y-2.5 sm:space-y-3 md:space-y-4 flex-1 overflow-y-auto">
+        {/* 반려동물 이름 입력 필드 - 반응형 폰트 크기 */}
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="petName" className="text-xs sm:text-sm md:text-base text-purple-600">
             {t("petName")} <span className="text-red-500">*</span>
           </Label>
           <Input
@@ -107,15 +123,15 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
             value={petName}
             onChange={(e) => setPetName(e.target.value)}
             required
-            className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
+            className="text-xs sm:text-sm md:text-base h-9 sm:h-10 md:h-11 lg:h-12"
           />
         </div>
 
         {/* 나이, 성별, 품종 입력 필드 (모바일에서는 1열, 태블릿 이상에서는 3열 그리드) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
           {/* 나이 입력 필드 */}
-          <div className="space-y-1 sm:space-y-1.5">
-            <Label htmlFor="petAge" className="text-xs sm:text-sm text-purple-600">
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="petAge" className="text-xs sm:text-sm md:text-base text-purple-600">
               {t("age")} <span className="text-red-500">*</span>
             </Label>
             <Input
@@ -124,13 +140,13 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
               value={petAge}
               onChange={(e) => setPetAge(e.target.value)}
               required
-              className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
+              className="text-xs sm:text-sm md:text-base h-9 sm:h-10 md:h-11 lg:h-12"
             />
           </div>
 
           {/* 성별 입력 필드 */}
-          <div className="space-y-1 sm:space-y-1.5">
-            <Label htmlFor="petGender" className="text-xs sm:text-sm text-purple-600">
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="petGender" className="text-xs sm:text-sm md:text-base text-purple-600">
               성별 <span className="text-red-500">*</span>
             </Label>
             <Input
@@ -139,13 +155,13 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
               value={petGender}
               onChange={(e) => setPetGender(e.target.value)}
               required
-              className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
+              className="text-xs sm:text-sm md:text-base h-9 sm:h-10 md:h-11 lg:h-12"
             />
           </div>
 
           {/* 품종 입력 필드 */}
-          <div className="space-y-1 sm:space-y-1.5">
-            <Label htmlFor="petSpecies" className="text-xs sm:text-sm text-purple-600">
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="petSpecies" className="text-xs sm:text-sm md:text-base text-purple-600">
               {t("species")} <span className="text-red-500">*</span>
             </Label>
             <Input
@@ -154,14 +170,14 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
               value={petSpecies}
               onChange={(e) => setPetSpecies(e.target.value)}
               required
-              className="text-xs sm:text-sm h-8 sm:h-9 md:h-10"
+              className="text-xs sm:text-sm md:text-base h-9 sm:h-10 md:h-11 lg:h-12"
             />
           </div>
         </div>
 
-        {/* 특징 입력 필드 (텍스트 영역) - 모바일에서 더 크게 */}
-        <div className="space-y-1 sm:space-y-1.5">
-          <Label htmlFor="petFeatures" className="text-xs sm:text-sm text-purple-600">
+        {/* 특징 입력 필드 (텍스트 영역) - 반응형 높이 */}
+        <div className="space-y-1 sm:space-y-2">
+          <Label htmlFor="petFeatures" className="text-xs sm:text-sm md:text-base text-purple-600">
             {t("features")} <span className="text-red-500">*</span>
           </Label>
           <Textarea
@@ -170,15 +186,15 @@ export function PetInfoInput({ onSubmit, initialValues = {}, selectedPhotos = []
             value={petFeatures}
             onChange={(e) => setPetFeatures(e.target.value)}
             required
-            className="text-xs sm:text-sm min-h-[80px] sm:min-h-[100px] md:min-h-[120px] resize-none"
+            className="text-xs sm:text-sm md:text-base min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px] resize-none"
           />
         </div>
 
-        {/* 제출 버튼 - 모바일에서 더 크게 */}
+        {/* 제출 버튼 - 반응형 패딩 및 폰트 크기 */}
         <Button
           type="submit"
           disabled={!isFormComplete}
-          className="w-full bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm md:text-base py-2 sm:py-2.5 md:py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-purple-500 to-sky-500 hover:from-purple-600 hover:to-sky-600 text-white text-xs sm:text-sm md:text-base lg:text-lg py-2 sm:py-2.5 md:py-3 lg:py-3.5 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         >
           {t("completeApplication")}
         </Button>
